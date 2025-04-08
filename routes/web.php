@@ -12,6 +12,7 @@ use App\Http\Controllers\Superadmin\DokterController;
 use App\Http\Controllers\Superadmin\LaboratController;
 use App\Http\Controllers\Superadmin\PasienController;
 use App\Http\Controllers\PenarikanDanaController;
+use App\Http\Controllers\RekamMedisController;
 
 
 Route::get('/', function () {
@@ -53,6 +54,19 @@ Route::middleware(['auth', 'superadmin'])->prefix('superadmin')->group(function 
 Route::middleware(['auth', 'dokter'])->group(function () {
     // Route::post('/penarikan/store', [PenarikanDanaController::class, 'store'])->name('penarikan.store');
 });
+
+Route::middleware(['auth', 'role:laborat'])->prefix('laborat')->name('laborat.')->group(function () {
+    Route::get('/', function () {
+        return view('laborat.index');
+    })->name('dashboard');
+
+    Route::get('/rekam-medis', [RekamMedisController::class, 'index'])->name('rekammedis.index');
+    Route::post('/rekam-medis', [RekamMedisController::class, 'store'])->name('rekammedis.store');
+    Route::get('/rekam-medis/{id}/edit', [RekamMedisController::class, 'edit'])->name('rekammedis.edit');
+    Route::put('/rekam-medis/{id}', [RekamMedisController::class, 'update'])->name('rekammedis.update');
+    Route::delete('/rekam-medis/{id}', [RekamMedisController::class, 'destroy'])->name('rekammedis.destroy');
+});
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/pasien', [App\Http\Controllers\DashboardPasienController::class, 'index'])->name('dashboard.pasien');

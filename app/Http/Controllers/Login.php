@@ -31,7 +31,7 @@ class Login extends Controller
                 case 'dokter':
                     return redirect()->route('dashboard.dokter');
                 case 'laborat':
-                    return redirect()->route('dashboard.laborat');
+                    return redirect()->route('laborat.dashboard');
                 case 'superadmin':
                     return redirect()->route('dashboard.superadmin');
                 default:
