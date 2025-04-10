@@ -16,7 +16,8 @@ class SesiKonsultasi extends Model
         'status',
         'catatan',
     ];
-    public function chat() {
-        return $this->hasMany(ChatKonsultasi::class, 'sesi_id');
+    public function chats()
+    {
+        return $this->hasMany(Chat::class, 'sesi_id');
     }
 }

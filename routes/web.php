@@ -20,6 +20,7 @@ use App\Http\Controllers\PenarikanDanaController;
 use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\KonsultasiController;
 use App\Http\Controllers\MidtransController;
+use App\Http\Controllers\ChatController;
 
 Route::get('/', function () {
     $dokters = Dokter::latest()->take(4)->get();
@@ -99,6 +100,11 @@ Route::middleware(['auth', 'role:pasien'])->group(function () {
     Route::get('/payment/webhook', [MidtransController::class, 'handleManualWebhook']);
 });
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/chat/{sesiId}', [ChatController::class, 'fetch']);
+    Route::get('/chat/messages/{sesiId}', [ChatController::class, 'getMessages'])->name('chat.messages');
+    Route::post('/chat/send', [ChatController::class, 'send']);
+});
 
 Route::middleware(['auth', 'role:pasien'])->group(function () {
     Route::get('/profil', [App\Http\Controllers\ProfilPasienController::class, 'show'])->name('profil.show');

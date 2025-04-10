@@ -1,0 +1,45 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Chat;
+use App\Models\SesiKonsultasi;
+use Illuminate\Support\Facades\Auth;
+
+class ChatController extends Controller
+{
+    public function fetch($sesiId)
+    {
+        $chats = Chat::where('sesi_id', $sesiId)
+            ->where('created_at', '>=', now()->subDays(3))
+            ->with('sender:id,name')
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        return response()->json($chats);
+    }
+
+    public function send(Request $request)
+    {
+        $request->validate([
+            'sesi_id' => 'required|exists:sesi_konsultasi,id',
+            'message' => 'required|string'
+        ]);
+
+        $sesi = SesiKonsultasi::find($request->sesi_id);
+
+        if (now()->lt($sesi->start_time) || now()->gt($sesi->end_time)) {
+            return response()->json(['error' => 'Sesi konsultasi tidak aktif'], 403);
+        }
+
+        $chat = Chat::create([
+            'sesi_id' => $request->sesi_id,
+            'sender_id' => Auth::id(),
+            'message' => $request->message
+        ]);
+
+        return response()->json($chat);
+    }
+}
+

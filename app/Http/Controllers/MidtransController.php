@@ -178,7 +178,7 @@ class MidtransController extends Controller
             $existingKonsultasi = SesiKonsultasi::where('pembayaran_id', $transaksi->id)->first();
 
             if (!$existingKonsultasi) {
-                SesiKonsultasi::create([
+                $konsultasi = SesiKonsultasi::create([
                     'dokter_id' => $transaksi->dokter_id,
                     'pasien_id' => $transaksi->user_id,
                     'pembayaran_id' => $transaksi->id,
@@ -192,9 +192,13 @@ class MidtransController extends Controller
                     'waktu_mulai' => now(),
                     'waktu_selesai' => now()->addMinutes(60),
                 ]);
+                $konsultasi = $existingKonsultasi; // kasih alias biar bisa pakai ->id di bawah
             }
 
-            return response()->json(['message' => 'Pembayaran berhasil dan sesi konsultasi dimulai.']);
+            return response()->json([
+                'message' => 'Pembayaran berhasil dan sesi konsultasi dimulai.',
+                'redirect' => route('pasien.chat', $konsultasi->id)
+            ]);
         }
 
         return response()->json(['message' => 'Transaksi tidak diproses karena status bukan settlement.']);
