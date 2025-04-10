@@ -34,9 +34,9 @@
     <link href="{{ asset('landing/css/main.css') }}" rel="stylesheet">
 
     <!-- Select2 -->
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 
     <!-- =======================================================
@@ -112,7 +112,19 @@
 
             <div class="container">
                 <div id="dokterList" class="row gy-4">
-                    <!-- List dokter akan di-generate oleh JavaScript -->
+                    @foreach ($dokters as $dokter )
+                    <div class="col-12 col-sm-6 col-md-3 d-flex align-items-stretch justify-content-center">
+                      <div class="dokter-member">
+                        <div class="dokter-img">
+                          <img src="{{ asset('storage/' . $dokter->foto) }}" class="img-fluid" alt="">
+                        </div>
+                        <div class="dokter-info">
+                          <h4>{{ $dokter->nama }}</h4>
+                          <span>Spesialis {{ $dokter->spesialis }}</span>
+                        </div>
+                      </div>
+                    </div>
+                    @endforeach
                 </div>
                 <div class="mt-5 d-flex justify-content-center">
                     <nav>
@@ -152,7 +164,7 @@
     <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>
 
-            <!-- Preloader -->
+    <!-- Preloader -->
     <div id="preloader"></div>
 
     <!-- Vendor JS Files -->
@@ -164,29 +176,19 @@
     <script src="{{ asset('landing/vendor/imagesloaded/imagesloaded.pkgd.min.js') }}"></script>
     <script src="{{ asset('landing/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
 
+    @php
+        $doctorsJson = $dokters->map(function ($dokter) {
+            return [
+                'name' => $dokter->nama,
+                'spesialis' => $dokter->spesialis,
+                'img' => asset('storage/' . $dokter->foto),
+            ];
+        });
+    @endphp
     <script>
-        const allDoctors = [{
-                name: 'dr. Kaeya Alberich, Sp.A (K)',
-                spesialis: 'Spesialis Anak',
-                img: 'assets/img/team/team-1.jpg'
-            },
-            {
-                name: 'dr. Jean Gunnhildr, Sp.JP',
-                spesialis: 'Spesialis Jantung',
-                img: 'assets/img/team/team-2.jpg'
-            },
-            {
-                name: 'dr. Albedo Geo, Sp.KK',
-                spesialis: 'Spesialis Kulit',
-                img: 'assets/img/team/team-3.jpg'
-            },
-            {
-                name: 'dr. Tighnari Dendro, Sp.A',
-                spesialis: 'Spesialis Anak',
-                img: 'assets/img/team/team-4.jpg'
-            },
-        ];
-
+        const allDoctors = @json($dokters);
+    </script>
+    <script>
         const dokterList = document.getElementById('dokterList');
         const searchInput = document.getElementById('searchInput');
         const filterSpesialis = document.getElementById('filterSpesialis');
@@ -250,7 +252,7 @@
             pageNumbers.forEach(p => {
                 if (p === '...') {
                     pagination.innerHTML +=
-                    `<li class="page-item disabled"><span class="page-link">...</span></li>`;
+                        `<li class="page-item disabled"><span class="page-link">...</span></li>`;
                 } else {
                     pagination.innerHTML += `
         <li class="page-item ${p === currentPage ? 'active' : ''}">

@@ -159,61 +159,21 @@
 
                 <div class="row gy-4">
 
+                  @foreach ($dokters as $dokter )
                     <div class="col-12 col-sm-3 col-md-3 d-flex align-items-stretch justify-content-center"
                         data-aos="fade-up" data-aos-delay="100">
                         <div class="team-member">
                             <div class="member-img">
-                                <img src="{{ asset('landing/img/team/team-1.jpg') }}" class="img-fluid"
+                                <img src="{{ asset('storage/' . $dokter->foto) }}" class="img-fluid"
                                     alt="">
                             </div>
                             <div class="member-info">
-                                <h4>dr. Kaeya Alberich, Sp.A (K)</h4>
-                                <span>Spesialis Anak</span>
+                                <h4>{{ $dokter->nama }}</h4>
+                                <span>Spesialis {{ $dokter->spesialis }}</span>
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-12 col-sm-3 col-md-3 d-flex align-items-stretch justify-content-center"
-                        data-aos="fade-up" data-aos-delay="200">
-                        <div class="team-member">
-                            <div class="member-img">
-                                <img src="{{ asset('landing/img/team/team-2.jpg') }}" class="img-fluid"
-                                    alt="">
-                            </div>
-                            <div class="member-info">
-                                <h4>dr. Kaeya Alberich, Sp.A (K)</h4>
-                                <span>Spesialis Anak</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12 col-sm-3 col-md-3 d-flex align-items-stretch justify-content-center"
-                        data-aos="fade-up" data-aos-delay="300">
-                        <div class="team-member">
-                            <div class="member-img">
-                                <img src="{{ asset('landing/img/team/team-3.jpg') }}" class="img-fluid"
-                                    alt="">
-                            </div>
-                            <div class="member-info">
-                                <h4>dr. Kaeya Alberich, Sp.A (K)</h4>
-                                <span>Spesialis Anak</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12 col-sm-3 col-md-3 d-flex align-items-stretch justify-content-center"
-                        data-aos="fade-up" data-aos-delay="400">
-                        <div class="team-member">
-                            <div class="member-img">
-                                <img src="{{ asset('landing/img/team/team-4.jpg') }}" class="img-fluid"
-                                    alt="">
-                            </div>
-                            <div class="member-info">
-                                <h4>dr. Kaeya Alberich, Sp.A (K)</h4>
-                                <span>Spesialis Anak</span>
-                            </div>
-                        </div>
-                    </div>
+                  @endforeach
 
                 </div>
                 <div class="text-end mt-5" data-aos="fade-up" data-aos-delay="400">

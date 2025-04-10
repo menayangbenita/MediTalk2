@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\PasienAuthController;
 use App\Http\Controllers\Register;
 use App\Http\Controllers\Login;
+use App\Models\Dokter;
 use App\Http\Controllers\DashboardPasienController;
 use App\Http\Controllers\Dokter\PenarikanController;
 use App\Http\Controllers\RekamMedisPasienController;
@@ -16,12 +17,14 @@ use App\Http\Controllers\RekamMedisController;
 
 
 Route::get('/', function () {
-    return view('landing.index');
+    $dokters = Dokter::latest()->take(4)->get();
+    return view('landing.index', compact('dokters'));
 })->name('landing');
 
 
 Route::get('/dokter-kami', function () {
-    return view('landing.dokter-kami');
+    $dokters = Dokter::all();
+    return view('landing.dokter-kami', compact('dokters'));
 })->name('dokterkami');
 
 Route::get('/register', [PasienAuthController::class, 'showRegistrationForm'])->name('pasien.register.form');
