@@ -1,12 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use App\Models\Dokter;
+use App\Models\User;
 use App\Http\Controllers\Auth\PasienAuthController;
 use App\Http\Controllers\Register;
 use App\Http\Controllers\Login;
-use App\Models\Dokter;
 use App\Http\Controllers\DashboardPasienController;
 use App\Http\Controllers\Dokter\PenarikanController;
+use App\Http\Controllers\Dokter\DashboardController;
 use App\Http\Controllers\RekamMedisPasienController;
 use App\Http\Controllers\SuperadminController;
 use App\Http\Controllers\Superadmin\DokterController;
@@ -44,7 +48,7 @@ Route::middleware(['auth', 'superadmin'])->group(function () {
 });
 
 Route::prefix('superadmin/laborat')->middleware('auth')->group(function () {
-    Route::get('/', [LaboratController::class, 'index'])->name('laborat.index');
+    Route::get('/laborat', [LaboratController::class, 'index'])->name('laborat.index');
     Route::post('/store', [LaboratController::class, 'store'])->name('laborat.store');
     Route::delete('/{id}', [LaboratController::class, 'destroy'])->name('laborat.destroy');
 });
@@ -60,9 +64,20 @@ Route::middleware(['auth', 'superadmin'])->prefix('superadmin')->group(function 
     Route::post('/penarikan/reject/{id}', [PenarikanDanaController::class, 'reject'])->name('penarikan.reject');
 });
 
-Route::middleware(['auth', 'dokter'])->group(function () {
+Route::middleware(['auth', 'role:dokter'])->group(function () {
+    Route::get('/dokter', [DashboardController::class, 'index'])->name( 'dashboard.dokter');
     // Route::post('/penarikan/store', [PenarikanDanaController::class, 'store'])->name('penarikan.store');
 });
+
+Route::get('/get-status', function () {
+    $user = Auth::user();
+    if (!$user) {
+        return response()->json(['message' => 'User tidak ditemukan!'], 401);
+    }
+    return response()->json(['status' => $user->status]);
+});
+
+Route::post('/dokter/update-status', [DokterController::class, 'updateStatus']);
 
 Route::middleware(['auth', 'role:laborat'])->prefix('laborat')->name('laborat.')->group(function () {
     Route::get('/', function () {

@@ -63,14 +63,14 @@ class DokterController extends Controller
 
         try {
             DB::beginTransaction();
-        
+
             $user = User::create([
                 'name' => $request->nama,
                 'email' => $request->email,
                 'password' =>  Hash::make($request->password),
                 'role' => 'dokter',
             ]);
-        
+
             Dokter::create([
                 'user_id' => $user->id,
                 'nama' => $request->nama,
@@ -86,15 +86,14 @@ class DokterController extends Controller
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
-        
+
             DB::commit();
-        
+
             return redirect()->back()->with('success', 'Dokter berhasil ditambahkan');
         } catch (\Exception $e) {
             DB::rollBack();
             dd($e->getMessage()); // TAMPILKAN error-nya!
         }
-        
     }
 
     public function destroy($id)
@@ -117,5 +116,16 @@ class DokterController extends Controller
         $dokter->delete();
 
         return redirect()->back()->with('success', 'Dokter berhasil dihapus');
+    }
+
+    public function updateStatus(Request $request)
+    {
+        $dokter = Dokter::find($request->id);
+        if (!$dokter) return response()->json(['message' => 'Dokter tidak ditemukan'], 404);
+
+        $dokter->status = $request->status;
+        $dokter->save();
+
+        return response()->json(['status' => $dokter->status]);
     }
 }

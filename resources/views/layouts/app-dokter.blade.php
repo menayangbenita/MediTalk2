@@ -25,6 +25,12 @@
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+        .last-chat {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 215px;
+        }
     </style>
     <script>
         // Frame-busting to prevent site from being loaded within a frame without permission (click-jacking) if (window.top != window.self) { window.top.location.replace(window.self.location.href); }
@@ -63,7 +69,7 @@
                             id="kt_app_sidebar_mobile_toggle">
                             <i class="ki-outline ki-abstract-14 fs-2"></i>
                         </div>
-                        <a href="{{ route('laborat.dashboard') }}">
+                        <a href="{{ route('dashboard.dokter') }}">
                             <img alt="Logo" src="{{ asset('images/Logo-text.svg') }}" class="h-30px" />
                         </a>
 
@@ -77,7 +83,7 @@
                     data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle">
                     <div class="app-sidebar-logo flex-shrink-0 d-none d-md-flex align-items-center px-8"
                         id="kt_app_sidebar_logo">
-                        <a href="{{ route('laborat.dashboard') }}">
+                        <a href="{{ route('dashboard.dokter') }}">
                             <img alt="Logo" src="{{ asset('images/Logo-text.svg') }}"
                                 class="h-35px d-none d-sm-inline app-sidebar-logo-default theme-light-show" />
                             <img alt="Logo" src="{{ asset('images/Logo-text.svg') }}"
@@ -98,27 +104,62 @@
                             data-kt-scroll-wrappers="#kt_app_sidebar_menu" data-kt-scroll-offset="5px">
                             <div class="menu menu-column menu-rounded menu-sub-indention fw-semibold px-1"
                                 id="#kt_app_sidebar_menu" data-kt-menu="true" data-kt-menu-expand="false">
-
-
-                                <div class="menu-item pt-5 mb-2">
-                                    <a class="menu-link {{ request()->routeIs('laborat.dashboard') ? 'active' : '' }}" href="{{ route('laborat.dashboard') }}">
+                                <div class="menu-item">
+                                    <a class="menu-link {{ request()->routeIs('dashboard.dokter') ? 'active' : '' }}" href="{{ route('dashboard.dokter') }}">
                                         <span class="menu-icon">
                                             <i class="ki-outline ki-home fs-2"></i>
                                         </span>
                                         <span class="menu-title">Beranda</span>
                                     </a>
-
+                                </div>
+                                <div class="menu-item pt-5">
+                                    <div class="menu-content">
+                                        <span class="menu-heading fw-bold text-uppercase fs-7">REKAM MEDIS PASIEN</span>
+                                    </div>
                                 </div>
                                 <div class="menu-item">
-                                    <div class="menu-content">
-                                        <span class="menu-heading fw-bold text-uppercase fs-7">REKAM MEDIS</span>
-                                    </div>
-                                    <a class="menu-link {{ request()->routeIs('laborat.rekammedis.index') ? 'active' : '' }}" href="{{ route('laborat.rekammedis.index') }}">
+                                    <a class="menu-link" href="">
                                         <span class="menu-icon">
-                                            <i class="bi bi-postcard-heart fs-2"></i>
+                                            <i class="bi bi-file-earmark-medical fs-2"></i>
                                         </span>
                                         <span class="menu-title">Rekam Medis Pasien</span>
                                     </a>
+                                </div>
+                                <div class="menu-item pt-5">
+                                    <div class="menu-content">
+                                        <span class="menu-heading fw-bold text-uppercase fs-7">KONSULTASI</span>
+                                    </div>
+                                </div>
+                                <div class="menu-item">
+                                    <a class="menu-link" href="">
+                                        <span class="menu-icon">
+                                            <i class="ki-outline ki-messages fs-2"></i>
+                                        </span>
+                                        <span class="menu-title">Konsultasi</span>
+                                    </a>
+                                </div>
+                                <div class="menu-item">
+                                    <a class="menu-link" href="">
+                                        <span class="menu-icon">
+                                            <i class="bi bi-cash-stack fs-2"></i>
+                                        </span>
+                                        <span class="menu-title">Penarikan Dana</span>
+                                    </a>
+                                </div>
+                                <div class="menu-item">
+                                    <div class="menu-link">
+                                        <div class="form-check form-switch form-check-custom form-check-solid">
+                                            <input class="form-check-input" type="checkbox"
+                                                id="switchAvailConsult"
+                                                data-id="{{ $dokter->id }}"
+                                                {{ $dokter->status == 'aktif' ? 'checked' : '' }} />
+                                            <label class="form-check-label" for="switchAvailConsult" style="pointer-events: none;">
+                                                <span class="menu-title" id="statusText">
+                                                    {{ $dokter->status == 'aktif' ? 'Tersedia' : 'Tidak Tersedia' }}
+                                                </span>
+                                            </label>
+                                        </div>                                        
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -128,21 +169,22 @@
                             <div class="d-flex align-items-center"
                                 data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-overflow="true"
                                 data-kt-menu-placement="top-start">
-                                <div class="d-flex flex-center cursor-pointer symbol symbol-circle symbol-40px">
-                                    <img src="{{ asset('images/user.jpg') }}" alt="image" />
+                                <div class="d-flex flex-center cursor-pointer symbol symbol-circle symbol-40px me-4">
+                                    <img src="{{ asset('storage/' . Auth::user()->dokter->foto) }}" alt="image" />
                                 </div>
-                                <div class="d-flex flex-column align-items-start justify-content-center ms-3">
-                                    <span class="text-gray-500 fs-8 fw-semibold">Selamat datang,</span>
-                                    <a href="#"
-                                        class="text-gray-800 fs-7 fw-bold text-hover-primary">{{ Auth::user()->name }}</a>
+                                <div class="d-flex flex-column">
+                                    <div class="fw-bold d-flex align-items-center fs-5">Selamat datang,
+                                    </div>
+                                    <a href="./profil.html"
+                                        class="fw-semibold text-muted text-hover-primary fs-7">{{ Auth::user()->name }}</a>
                                 </div>
                             </div>
                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-275px"
                                 data-kt-menu="true">
                                 <div class="menu-item px-3">
                                     <div class="menu-content d-flex align-items-center px-3">
-                                        <div class="symbol symbol-50px me-5">
-                                            <img alt="Logo" src="{{ asset('images/user.jpg') }}" />
+                                        <div class="symbol symbol-50px me-8">
+                                            <img alt="Logo" src="{{ asset('storage/' . Auth::user()->dokter->foto) }}" />
                                         </div>
                                         <div class="d-flex flex-column">
                                             <div class="fw-bold d-flex align-items-center fs-5">
@@ -222,7 +264,7 @@
                                     document.write(new Date().getFullYear());
                                 </script>&copy;
                             </span>
-                            <a href="{{ route('laborat.dashboard') }}" target="_blank"
+                            <a href="{{ route('dashboard.dokter') }}" target="_blank"
                                 class="text-gray-800 text-hover-primary">MediTalk</a>
                         </div>
                     </div>
@@ -248,6 +290,33 @@
     <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
     <script src="{{ asset('plugins/custom/datatables/datatables.bundle.js') }}"></script>
 
+    <script>
+        $(document).ready(function () {
+            $('#switchAvailConsult').on('change', function () {
+                const dokterId = $(this).data('id');
+                const isChecked = $(this).is(':checked');
+                const status = isChecked ? 'aktif' : 'tidak';
+    
+                $.ajax({
+                    url: 'http://localhost/MediTalkk/public/dokter/update-status',
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        id: dokterId,
+                        status: status
+                    },
+                    success: function (res) {
+                        $('#statusText').text(res.status === 'aktif' ? 'Tersedia' : 'Tidak Tersedia');
+                    },
+                    error: function (err) {
+                        alert('Gagal mengubah status');
+                        $(this).prop('checked', !isChecked);
+                    }
+                });
+            });
+        });
+    </script>
+    
 </body>
 
 </html>
