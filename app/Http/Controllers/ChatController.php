@@ -15,7 +15,7 @@ class ChatController extends Controller
         $sesi = SesiKonsultasi::findOrFail($sesiId);
 
         if (Auth::id() != $sesi->pasien_id && Auth::id() != $sesi->dokter_id) {
-            abort(403); 
+            abort(403);
         }
 
         return view('pasien.konsultasi.chat', compact('sesi'));
@@ -25,8 +25,18 @@ class ChatController extends Controller
     public function getMessages($sesiId)
     {
         $messages = Chat::where('sesi_id', $sesiId)
+            ->with('sender') 
             ->orderBy('created_at', 'asc')
-            ->get();
+            ->get()
+            ->map(function ($msg) {
+                return [
+                    'id' => $msg->id,
+                    'sender_id' => $msg->sender_id,
+                    'sender_name' => $msg->sender->name ?? 'Unknown',
+                    'pesan' => $msg->pesan,
+                    'created_at' => $msg->created_at->format('H:i'),
+                ];
+            });
 
         return response()->json($messages);
     }
@@ -82,4 +92,3 @@ class ChatController extends Controller
     //     return response()->json($chat);
     // }
 }
-
