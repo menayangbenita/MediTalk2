@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Midtrans\Config;
 use Midtrans\Snap;
 use App\Models\Transaksi;
-use App\Models\Konsultasi;
+use App\Models\SesiKonsultasi;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -84,18 +84,16 @@ class MidtransController extends Controller
             return response()->json(['error' => 'Transaction not found'], 404);
         }
 
-        // Jika pembayaran sukses, update status transaksi dan buat sesi konsultasi
         if (in_array($transactionStatus, ['settlement', 'capture'])) {
-            $transaksi->update(['payment_status' => 'settlement']); // Update status transaksi
+            $transaksi->update(['payment_status' => 'settlement']); 
 
-            // Buat sesi konsultasi
-            $konsultasi = Konsultasi::create([
+            $konsultasi = SesiKonsultasi::create([
                 'dokter_id' => $transaksi->dokter_id,
                 'pasien_id' => $transaksi->user_id,
-                'transaksi_id' => $transaksi->order_id,
+                'pembayaran_id' => $transaksi->order_id,
                 'status' => 'ongoing',
-                'start_time' => now(),
-                'end_time' => now()->addMinutes(60), // Menambahkan 60 menit ke start_time
+                'waktu_mulai' => now(),
+                'waktu_selesai' => now()->addMinutes(60), 
             ]);
 
             Log::info("Sesi konsultasi dimulai untuk transaksi: $orderId");
@@ -138,10 +136,10 @@ class MidtransController extends Controller
             ],
         ];
 
-        $konsultasi = Konsultasi::create([
+        $konsultasi = SesiKonsultasi::create([
             'pasien_id' => Auth::user()->id,
             'dokter_id' => $request->dokter_id,
-            'transaksi_id' => $transaction->id,
+            'pembayaran_id' => $transaction->id,
             'status' => 'pending',
         ]);
 
@@ -152,4 +150,48 @@ class MidtransController extends Controller
             return back()->with('error', $e->getMessage());
         }
     }
+
+    public function handleManualWebhook(Request $request)
+{
+    if ($request->secret !== 'MediTalkJaya') {
+        return response()->json(['error' => 'Unauthorized'], 401);
+    }
+
+    $orderId = $request->query('order_id');
+    $statusCode = $request->query('status_code');
+    $transactionStatus = $request->query('transaction_status');
+
+    if (!$orderId || !$statusCode || !$transactionStatus) {
+        return response()->json(['error' => 'Missing parameters'], 400);
+    }
+
+    $transaksi = Transaksi::where('order_id', $orderId)->first();
+
+    if (!$transaksi) {
+        return response()->json(['error' => 'Transaction not found'], 404);
+    }
+
+    // Jika pembayaran sukses
+    if ($transactionStatus === 'settlement' && $statusCode == 200) {
+        $transaksi->update(['payment_status' => 'settlement']);
+
+        // Cek apakah sesi konsultasi sudah dibuat
+        $existingKonsultasi = \App\Models\Konsultasi::where('transaksi_id', $transaksi->id)->first();
+        if (!$existingKonsultasi) {
+            $konsultasi = \App\Models\Konsultasi::create([
+                'dokter_id' => $transaksi->dokter_id,
+                'pasien_id' => $transaksi->user_id,
+                'pembayaran_id' => $transaksi->id,
+                'status' => 'ongoing',
+                'start_time' => now(),
+                'end_time' => now()->addMinutes(60),
+            ]);
+        }
+
+        return response()->json(['message' => 'Pembayaran berhasil dan sesi konsultasi dimulai.']);
+    }
+
+    return response()->json(['message' => 'Transaksi tidak diproses karena status bukan settlement.']);
+}
+
 }

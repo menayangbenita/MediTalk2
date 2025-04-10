@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SesiKonsultasi;
 use App\Models\User;
 use App\Models\Dokter;
 use Illuminate\Support\Facades\Auth;
@@ -38,5 +39,13 @@ class KonsultasiController extends Controller
         $dokter = User::where('role', 'dokter')->findOrFail($id);
 
         return view('pasien.konsultasi.profildokter', compact('dokter'));
+    }
+
+    public function riwayat()
+    {
+        $riwayat = SesiKonsultasi::where('status', 'selesai')
+            ->where('pasien_id', Auth::user()->id)
+            ->get();
+        return view('pasien.konsultasi.riwayat', compact('riwayat'));
     }
 }

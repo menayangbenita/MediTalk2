@@ -80,6 +80,8 @@ Route::middleware(['auth', 'role:pasien'])->group(function () {
     Route::get('/dashboard/pasien', [App\Http\Controllers\DashboardPasienController::class, 'index'])->name('dashboard.pasien');
     Route::get('/konsultasi', [KonsultasiController::class, 'index'])->name('konsultasi');
     Route::get('/profildokter{id}', [KonsultasiController::class, 'dokter'])->name('profildokter');
+    Route::get('/riwayat-konsultasi', [KonsultasiController::class, 'riwayat'])->name('riwayat.konsultasi');
+    Route::get('/payment/webhook', [MidtransController::class, 'handleManualWebhook']);
 });
 
 

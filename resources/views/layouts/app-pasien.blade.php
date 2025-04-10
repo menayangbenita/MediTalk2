@@ -141,7 +141,7 @@
                                             </a>
                                         </div>
                                         <div class="menu-item">
-                                            <a class="menu-link" href="./konsultasi_riwayat.html">
+                                            <a class="menu-link" href="{{ route('riwayat.konsultasi') }}">
                                                 <span class="menu-bullet">
                                                     <span class="bullet bullet-dot"></span>
                                                 </span>
