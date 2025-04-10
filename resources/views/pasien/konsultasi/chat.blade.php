@@ -29,7 +29,7 @@
         <div id="kt_app_content" class="app-content flex-column-fluid">
             <div id="kt_app_content_container" class="app-container container-xxl">
                 <div class="d-flex flex-column flex-lg-row">
-                    <div class="flex-lg-row-fluid ms-lg-7 ms-xl-10 order-0 order-lg-1 mb-4">
+                    <div class="flex-lg-row-fluid order-0 order-lg-1">
                         <div class="card" id="kt_chat_messenger">
                             <div class="card-header" id="kt_chat_messenger_header">
                                 <div class="card-title">
