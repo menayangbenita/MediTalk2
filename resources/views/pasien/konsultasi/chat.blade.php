@@ -108,7 +108,7 @@
 
                 $.ajax({
                     url: 'https://meditalk.catalogrpl.com/public/chat/send',
-                    method: 'POST',
+                    method: 'GET',
                     data: {
                         sesi_id: $('#sesi_id').val(),
                         sender_id: $('#sender_id').val(),
