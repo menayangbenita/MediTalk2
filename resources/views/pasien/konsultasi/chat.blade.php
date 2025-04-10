@@ -125,8 +125,8 @@
                             <div class="card-footer pt-4" id="kt_chat_messenger_footer">
                                 <form action="{{ route('chat.send') }}" method="post" id="sendMessageForm">
                                     @csrf
-                                    <input type="hidden" name="sesi_id" value="{{ $sesi->id }}">
-                                    <input type="hidden" name="sender_id" value="{{ Auth::user()->id }}">
+                                    <input type="hidden" name="sesi_id" id="sesi_id" value="{{ $sesi->id }}">
+                                    <input type="hidden" name="sender_id" id="sender_id" value="{{ Auth::user()->id }}">
                                     <textarea class="form-control mb-3" rows="1" data-kt-element="input" placeholder="Ketik pesan..."
                                         name="pesan" id="messageInput"></textarea>
                                     <div class="d-flex flex-stack">
@@ -150,28 +150,42 @@
             </div>
         </div>
     </div>
-
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>        
     <script>
-        $.ajax({
-            url: 'https://meditalk.catalogrpl.com/public/chat/send',
-            method: 'POST',
-            data: {
-                sesi_id: $('#sesi_id').val(),
-                pesan: $('#pesan').val(),
-                sender_id: $('#sender_id').val(),
-                _token: $('meta[name="csrf-token"]').attr('content'),
-            },
-            success: function(response) {
-                alert(response.message);
-                if (response.redirect) {
-                    window.location.href = response.redirect;
-                }
-            },
-            error: function(xhr) {
-                alert('Gagal mengirim pesan');
-            }
+        $(document).ready(function() {
+            $('#sendMessageForm').on('submit', function(e) {
+                e.preventDefault();
+        
+                $.ajax({
+                    url: 'https://meditalk.catalogrpl.com/public/chat/send',
+                    method: 'POST',
+                    data: {
+                        sesi_id: $('#sesi_id').val(),
+                        sender_id: $('#sender_id').val(),
+                        pesan: $('#messageInput').val(),
+                        _token: $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        $('#messageInput').val('');
+        
+                        $('#kt_chat_messenger_body').append(`
+                            <div class="message outgoing">
+                                <div class="bubble">
+                                    ${response.data.pesan}
+                                </div>
+                            </div>
+                        `);
+        
+                        $('#kt_chat_messenger_body').scrollTop($('#kt_chat_messenger_body')[0].scrollHeight);
+                    },
+                    error: function(xhr) {
+                        alert('Gagal mengirim pesan');
+                    }
+                });
+            });
         });
-    </script>
+        </script>
 
     {{-- <script>
         function loadMessages() {
