@@ -14,7 +14,8 @@ use App\Http\Controllers\Superadmin\LaboratController;
 use App\Http\Controllers\Superadmin\PasienController;
 use App\Http\Controllers\PenarikanDanaController;
 use App\Http\Controllers\RekamMedisController;
-
+use App\Http\Controllers\KonsultasiController;
+use App\Http\Controllers\MidtransController;
 
 Route::get('/', function () {
     $dokters = Dokter::latest()->take(4)->get();
@@ -75,15 +76,18 @@ Route::middleware(['auth', 'role:laborat'])->prefix('laborat')->name('laborat.')
     Route::delete('/rekam-medis/{id}', [RekamMedisController::class, 'destroy'])->name('rekammedis.destroy');
 });
 
-
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'role:pasien'])->group(function () {
     Route::get('/dashboard/pasien', [App\Http\Controllers\DashboardPasienController::class, 'index'])->name('dashboard.pasien');
+    Route::get('/konsultasi', [KonsultasiController::class, 'index'])->name('konsultasi');
+    Route::get('/profildokter{id}', [KonsultasiController::class, 'dokter'])->name('profildokter');
 });
+
 
 Route::middleware(['auth', 'role:pasien'])->group(function () {
     Route::get('/profil', [App\Http\Controllers\ProfilPasienController::class, 'show'])->name('profil.show');
     Route::get('/profil/edit', [App\Http\Controllers\ProfilPasienController::class, 'edit'])->name('profil.edit');
     Route::put('/profil/update', [App\Http\Controllers\ProfilPasienController::class, 'update'])->name('profil.update');
+    Route::post('/bayarkonsultasi', [MidtransController::class, 'bayarKonsultasi'])->name('transaksi.konsultasi');
 });
 
 Route::middleware(['auth', 'role:pasien'])->group(function () {
