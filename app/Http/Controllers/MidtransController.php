@@ -157,9 +157,10 @@ class MidtransController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        $orderId = $request->query('order_id');
-        $statusCode = $request->query('status_code');
-        $transactionStatus = $request->query('transaction_status');
+        $orderId = $request->input('order_id');
+        $statusCode = $request->input('status_code');
+        $transactionStatus = $request->input('transaction_status');
+
 
         if (!$orderId || !$statusCode || !$transactionStatus) {
             return response()->json(['error' => 'Missing parameters'], 400);
@@ -172,7 +173,7 @@ class MidtransController extends Controller
         }
 
         if ($transactionStatus === 'settlement' && $statusCode == 200) {
-            $transaksi->update(['payment_status' => 'settlement']);
+            $transaksi->update(['status' => 'settlement']);
 
             $existingKonsultasi = SesiKonsultasi::where('pembayaran_id', $transaksi->id)->first();
             if (!$existingKonsultasi) {
@@ -180,9 +181,9 @@ class MidtransController extends Controller
                     'dokter_id' => $transaksi->dokter_id,
                     'pasien_id' => $transaksi->user_id,
                     'pembayaran_id' => $transaksi->id,
+                    'waktu_mulai' => now(),
+                    'waktu_selesai' => now()->addMinutes(60),
                     'status' => 'ongoing',
-                    'start_time' => now(),
-                    'end_time' => now()->addMinutes(60),
                 ]);
             }
 
