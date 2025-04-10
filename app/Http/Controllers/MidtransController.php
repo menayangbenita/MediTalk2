@@ -171,11 +171,9 @@ class MidtransController extends Controller
             return response()->json(['error' => 'Transaction not found'], 404);
         }
 
-        // Jika pembayaran sukses
         if ($transactionStatus === 'settlement' && $statusCode == 200) {
             $transaksi->update(['payment_status' => 'settlement']);
 
-            // Cek apakah sesi konsultasi sudah dibuat
             $existingKonsultasi = SesiKonsultasi::where('pembayaran_id', $transaksi->id)->first();
             if (!$existingKonsultasi) {
                 $konsultasi = SesiKonsultasi::create([
