@@ -126,7 +126,8 @@
                                 <form action="{{ route('chat.send') }}" method="post" id="sendMessageForm">
                                     @csrf
                                     <input type="hidden" name="sesi_id" id="sesi_id" value="{{ $sesi->id }}">
-                                    <input type="hidden" name="sender_id" id="sender_id" value="{{ Auth::user()->id }}">
+                                    <input type="hidden" name="sender_id" id="sender_id"
+                                        value="{{ Auth::user()->id }}">
                                     <textarea class="form-control mb-3" rows="1" data-kt-element="input" placeholder="Ketik pesan..."
                                         name="pesan" id="messageInput"></textarea>
                                     <div class="d-flex flex-stack">
@@ -150,13 +151,13 @@
             </div>
         </div>
     </div>
-    
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>        
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#sendMessageForm').on('submit', function(e) {
                 e.preventDefault();
-        
+
                 $.ajax({
                     url: 'https://meditalk.catalogrpl.com/public/chat/send',
                     method: 'POST',
@@ -169,7 +170,7 @@
                     success: function(response) {
                         console.log(response);
                         $('#messageInput').val('');
-        
+
                         $('#kt_chat_messenger_body').append(`
                             <div class="message outgoing">
                                 <div class="bubble">
@@ -177,8 +178,9 @@
                                 </div>
                             </div>
                         `);
-        
-                        $('#kt_chat_messenger_body').scrollTop($('#kt_chat_messenger_body')[0].scrollHeight);
+
+                        $('#kt_chat_messenger_body').scrollTop($('#kt_chat_messenger_body')[0]
+                            .scrollHeight);
                     },
                     error: function(xhr) {
                         alert('Gagal mengirim pesan');
@@ -186,89 +188,65 @@
                 });
             });
         });
-        </script>
+    </script>
 
-    {{-- <script>
+    <script>
         function loadMessages() {
             $.ajax({
-                url: "https://living-salmon-completely.ngrok-free.app/MediTalk/public/chatget",
-                type: "POST",
+                url: "{{ route('chat.get') }}",
+                method: "POST",
                 data: {
-                    receiver_id: $("#incoming_id").val()
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    sesi_id: $('#sesi_id').val(),
                 },
                 success: function(response) {
-                    console.log("Respons API:", response); // Debugging
+                    const chatContainer = $('[data-kt-element="messages"]');
+                    chatContainer.html('');
 
-                    let messages = response.messages;
-                    let auth_id = response.auth_id;
-                    let chatContainer = $('[data-kt-element="messages"]');
-
-                    if (!chatContainer.length) {
-                        console.error("Chat container tidak ditemukan!");
-                        return;
-                    }
-
-                    chatContainer.html(""); // Kosongkan dulu sebelum ditambahkan ulang
-
-                    messages.forEach(function(msg) {
-                        let messageHTML = "";
-
-                        if (msg.sender_id == auth_id) {
-                            messageHTML = `
-                    <div class="d-flex justify-content-end mb-10">
-                        <div class="d-flex flex-column align-items-end">
-                            <div class="d-flex align-items-center mb-2">
-                                <div class="me-3">
-                                    <span class="text-muted fs-7 mb-1">${msg.created_at}</span>
-                                    <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary ms-1">Anda</a>
+                    response.messages.forEach(function(msg) {
+                        const isSender = msg.sender_id == {{ Auth::user()->id }};
+                        const bubble = `
+                        <div class="d-flex justify-content-${isSender ? 'end' : 'start'} mb-10">
+                            <div class="d-flex flex-column align-items-${isSender ? 'end' : 'start'}">
+                                <div class="d-flex align-items-center mb-2">
+                                    ${isSender ? `
+                                            <div class="me-3">
+                                                <span class="text-muted fs-7 mb-1">${msg.created_at}</span>
+                                                <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary ms-1">Anda</a>
+                                            </div>
+                                            <div class="symbol symbol-35px symbol-circle">
+                                                <img alt="Pic" src="/default-avatar.png" />
+                                            </div>
+                                        ` : `
+                                            <div class="symbol symbol-35px symbol-circle">
+                                                <img alt="Pic" src="/dokter-avatar.png" />
+                                            </div>
+                                            <div class="ms-3">
+                                                <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">${msg.sender_name}</a>
+                                                <span class="text-muted fs-7 mb-1">${msg.created_at}</span>
+                                            </div>
+                                        `}
                                 </div>
-                                <div class="symbol symbol-35px symbol-circle">
-                                    <img alt="Pic" src="/path-to-your-avatar.jpg" />
+                                <div class="p-5 rounded ${isSender ? 'bg-light-primary text-end' : 'bg-light-info text-start'} text-dark fw-semibold mw-lg-400px" data-kt-element="message-text">
+                                    ${msg.pesan}
                                 </div>
-                            </div>
-                            <div class="p-5 rounded bg-light-primary text-dark fw-semibold mw-lg-400px text-end" data-kt-element="message-text">
-                                ${msg.message}
                             </div>
                         </div>
-                    </div>
                     `;
-                        } else {
-                            messageHTML = `
-                    <div class="d-flex justify-content-start mb-10">
-                        <div class="d-flex flex-column align-items-start">
-                            <div class="d-flex align-items-center mb-2">
-                                <div class="symbol symbol-35px symbol-circle">
-                                    <img alt="Pic" src="/path-to-opponent-avatar.jpg" />
-                                </div>
-                                <div class="ms-3">
-                                    <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">${msg.sender_name || "Lawannya"}</a>
-                                    <span class="text-muted fs-7 mb-1">${msg.created_at}</span>
-                                </div>
-                            </div>
-                            <div class="p-5 rounded bg-light-info text-dark fw-semibold mw-lg-400px text-start" data-kt-element="message-text">
-                                ${msg.message}
-                            </div>
-                        </div>
-                    </div>
-                    `;
-                        }
-
-                        chatContainer.append(messageHTML);
+                        chatContainer.append(bubble);
                     });
-
-                    console.log("Pesan setelah di-render:", chatContainer.html());
 
                     chatContainer.scrollTop(chatContainer[0].scrollHeight);
                 },
                 error: function(error) {
-                    console.error("Error fetching messages:", error);
-                },
+                    console.error("Gagal memuat pesan:", error);
+                }
             });
         }
 
-        setInterval(loadMessages, 500);
+        setInterval(loadMessages, 2000);
         loadMessages();
-    </script> --}}
+    </script>
 
     {{-- <script>
         fetch('/api/get-messages')
