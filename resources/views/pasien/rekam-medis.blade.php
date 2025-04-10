@@ -35,7 +35,7 @@
                             <table id="kt_rekam_table"
                                 class="table align-middle table-row-dashed fs-6 gy-5">
                                 <thead>
-                                    <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0 e">
+                                    <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                         <th>Tanggal</th>
                                         <th>Dokter</th>
                                         <th>Anamnesis</th>

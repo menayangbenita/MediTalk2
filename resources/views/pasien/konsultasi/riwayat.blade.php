@@ -19,17 +19,25 @@
     <div id="kt_app_content" class="app-content flex-column-fluid">
         <div id="kt_app_content_container" class="app-container container-xxl">
             <div class="card mb-5 mb-xl-5 box-shadow">
-                <div class="card-header ">
-                    <div class="card-title m-0">
-                        <h3 class="fw-bold m-0">Riwayat Konsultasi Saya</h3>
+                <div class="card-header align-items-center py-5 gap-2 gap-md-5">
+                    <!--begin::Card title-->
+                    <div class="card-title">
+                        <!--begin::Search-->
+                        <div class="d-flex align-items-center position-relative my-1">
+                            <i class="ki-outline ki-magnifier fs-3 position-absolute ms-4"></i>
+                            <input type="text" data-kt-konsultasi-filter="search"
+                                class="form-control form-control-solid w-250px ps-12" placeholder="Cari Riwayat Konsultasi" />
+                        </div>
+                        <!--end::Search-->
                     </div>
+                    <!--end::Card title-->
                 </div>
-                <div class="card-body p-9">
+                <div class="card-body p-9 pt-0">
                     <div class="table-responsive">
-                        <table id="tabel_riwayat_konsultasi"
-                            class="table table-striped table-row-bordered gy-5 gs-7 border rounded">
+                        <table id="kt_konsultasi_table"
+                            class="table align-middle table-row-dashed fs-6 gy-5">
                             <thead>
-                                <tr class="fw-bold fs-6 text-gray-800 px-7">
+                                <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                     <th>Tanggal</th>
                                     <th>Waktu</th>
                                     <th>Dokter</th>
@@ -38,7 +46,7 @@
                                     <th class="w-70px">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="fw-semibold text-gray-600 text-start text-wrap">
                                 <tr>
                                     <td>29 Jan 2025</td>
                                     <td>09.19 - 10.19</td>
@@ -62,4 +70,46 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const table = $('#kt_konsultasi_table').DataTable({
+            pageLength: 5,
+            ordering: false,
+            lengthMenu: [5, 10, 25, 50, 100],
+            language: {
+                search: "Cari:",
+                paginate: {
+                    previous: "",
+                    next: ""
+                },
+                lengthMenu: "_MENU_",
+                zeroRecords: "Data tidak ditemukan",
+                info: "",
+                infoEmpty: "Tidak ada data",
+                infoFiltered: ""
+            }
+        });
+
+        const inputSearch = document.querySelector('[data-kt-konsultasi-filter="search"]');
+        inputSearch.addEventListener('keyup', function() {
+            table.search(this.value).draw();
+        });
+
+        $('[data-kt-pasien-filter="status"]').on('change', function() {
+            const val = $(this).val();
+            let keyword = '';
+
+            if (val === "all" || val === "") {
+                keyword = '';
+            } else if (val === 'aktif') {
+                keyword = 'Tersedia';
+            } else if (val === 'tidak') {
+                keyword = 'Tidak Tersedia';
+            }
+
+            table.column(5).search(keyword, false, true).draw();
+        });
+    });
+</script>
 @endsection
