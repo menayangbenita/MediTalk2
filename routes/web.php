@@ -103,7 +103,7 @@ Route::middleware(['auth', 'role:pasien'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/chat/{sesiId}', [ChatController::class, 'index'])->name('pasien.chat');
     Route::get('/chat/messages/{sesiId}', [ChatController::class, 'getMessages'])->name('chat.messages');
-    Route::post('/chat/send', [ChatController::class, 'send']);
+    Route::post('/chat/send', [ChatController::class, 'send'])->name('chat.send');
 });
 
 Route::middleware(['auth', 'role:pasien'])->group(function () {

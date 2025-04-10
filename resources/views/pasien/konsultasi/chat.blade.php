@@ -123,7 +123,7 @@
                                 </div>
                             </div>
                             <div class="card-footer pt-4" id="kt_chat_messenger_footer">
-                                <form action="{{ route('send') }}" method="post" id="sendMessageForm">
+                                <form action="{{ route('chat.send') }}" method="post" id="sendMessageForm">
                                     @csrf
                                     <input type="hidden" name="sesi_id" value="{{ $sesi->id }}">
                                     <input type="hidden" name="sender_id" value="{{ Auth::user()->id }}">
