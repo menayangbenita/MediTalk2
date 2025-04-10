@@ -195,10 +195,7 @@ class MidtransController extends Controller
                 $konsultasi = $existingKonsultasi; // kasih alias biar bisa pakai ->id di bawah
             }
 
-            return response()->json([
-                'message' => 'Pembayaran berhasil dan sesi konsultasi dimulai.',
-                'redirect' => route('pasien.chat', $konsultasi->id)
-            ]);
+            return redirect()->route('pasien.chat', $konsultasi->id);
         }
 
         return response()->json(['message' => 'Transaksi tidak diproses karena status bukan settlement.']);
