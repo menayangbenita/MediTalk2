@@ -193,7 +193,7 @@
     <script>
         function loadMessages() {
             $.ajax({
-                url: "{{ route('chat.get') }}",
+                url: "{{ route('chat.messages') }}",
                 method: "POST",
                 data: {
                     _token: $('meta[name="csrf-token"]').attr('content'),
