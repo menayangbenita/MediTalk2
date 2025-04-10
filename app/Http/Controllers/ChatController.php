@@ -35,13 +35,12 @@ class ChatController extends Controller
     public function send(Request $request)
     {
         $request->validate([
-            'sesi_id' => 'required|exists:sesi_konsultasis,id',
+            'sesi_id' => 'required|exists:sesi_konsultasi,id',
             'pesan' => 'required|string',
         ]);
 
         $sesi = SesiKonsultasi::findOrFail($request->sesi_id);
 
-        // Pastikan user adalah peserta sesi
         if (Auth::id() != $sesi->pasien_id && Auth::id() != $sesi->dokter_id) {
             return response()->json(['error' => 'Unauthorized'], 403);
         }
