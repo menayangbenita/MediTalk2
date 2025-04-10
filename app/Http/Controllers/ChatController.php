@@ -50,7 +50,7 @@ class ChatController extends Controller
         $chat = Chat::create([
             'sesi_id' => $sesi->id,
             'sender_id' => Auth::id(),
-            'pesan' => $request->message,
+            'pesan' => $request->pesan,
         ]);
 
         return response()->json([

@@ -8,8 +8,8 @@ use HasFactory;
 class Chat extends Model
 {
     protected $table = 'chat_konsultasi';
-    
-    protected $fillable = ['sesi_id', 'sender_id', 'message'];
+
+    protected $fillable = ['sesi_id', 'sender_id', 'pesan'];
 
     public function sesi()
     {
