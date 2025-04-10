@@ -65,9 +65,10 @@
                                 <form action="{{ route('chat.send') }}" method="post" id="sendMessageForm">
                                     @csrf
                                     <input type="hidden" name="sesi_id" id="sesi_id" value="{{ $sesi->id }}">
-                                    <input type="hidden" name="sender_id" id="sender_id" value="{{ Auth::user()->id }}">
-                                    <textarea class="form-control mb-3" rows="1" data-kt-element="input" placeholder="Ketik pesan..." name="pesan"
-                                        id="messageInput"></textarea>
+                                    <input type="hidden" name="sender_id" id="sender_id"
+                                        value="{{ Auth::user()->id }}">
+                                    <textarea class="form-control mb-3" rows="1" data-kt-element="input" placeholder="Ketik pesan..."
+                                        name="pesan" id="messageInput"></textarea>
                                     <div class="d-flex flex-stack">
                                         <div class="d-flex align-items-center me-2">
                                             <input type="file" style="display:none;" id="inputFile" />
@@ -92,23 +93,13 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        function escapeHtml(text) {
-            return text
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-        }
-    </script>
-    <script>
         $(document).ready(function() {
             $('#sendMessageForm').on('submit', function(e) {
                 e.preventDefault();
 
                 $.ajax({
                     url: 'https://meditalk.catalogrpl.com/public/chat/send',
-                    method: 'GET',
+                    method: 'POST',
                     data: {
                         sesi_id: $('#sesi_id').val(),
                         sender_id: $('#sender_id').val(),
@@ -139,54 +130,6 @@
     </script>
 
     <script>
-        function renderMessage(msg, currentUserId) {
-            const isSender = msg.sender_id === currentUserId;
-
-            const wrapperClass = `d-flex justify-content-${isSender ? 'end' : 'start'} mb-10`;
-            const columnClass = `d-flex flex-column align-items-${isSender ? 'end' : 'start'}`;
-            const bubbleClass =
-                `p-5 rounded ${isSender ? 'bg-light-primary text-end' : 'bg-light-info text-start'} text-dark fw-semibold mw-lg-400px`;
-
-            const avatar = isSender ?
-                `<img alt="Pic" src="{{ asset('images/user.jpg') }}" />` :
-                `<img alt="Pic" src="/dokter-avatar.png" />`;
-
-            const header = isSender ?
-                `
-                <div class="me-3">
-                    <span class="text-muted fs-7 mb-1">${msg.created_at}</span>
-                    <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary ms-1">Anda</a>
-                </div>
-                <div class="symbol symbol-35px symbol-circle">
-                    ${avatar}
-                </div>
-            ` :
-                `
-                <div class="symbol symbol-35px symbol-circle">
-                    ${avatar}
-                </div>
-                <div class="ms-3">
-                    <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">${msg.sender_name ?? 'Dokter'}</a>
-                    <span class="text-muted fs-7 mb-1">${msg.created_at}</span>
-                </div>
-            `;
-
-            return `
-            <div class="${wrapperClass}">
-                <div class="${columnClass}">
-                    <div class="d-flex align-items-center mb-2">
-                        ${header}
-                    </div>
-                    <div class="${bubbleClass}" data-kt-element="message-text">
-                        ${msg.pesan}
-                    </div>
-                </div>
-            </div>
-        `;
-        }
-    </script>
-
-    <script>
         function loadMessages() {
             $.ajax({
                 url: "{{ route('chat.messages', $sesi->id) }}",
@@ -200,7 +143,57 @@
                     chatContainer.html('');
 
                     response.messages.forEach(function(msg) {
-                        chatContainer.append(renderMessage(msg, {{ Auth::user()->id }}));
+                        const isSender = msg.sender_id == {{ Auth::user()->id }};
+
+                        function renderMessage(msg, currentUserId) {
+                            const isSender = msg.sender_id === currentUserId;
+
+                            const wrapperClass =
+                                `d-flex justify-content-${isSender ? 'end' : 'start'} mb-10`;
+                            const columnClass =
+                                `d-flex flex-column align-items-${isSender ? 'end' : 'start'}`;
+                            const bubbleClass =
+                                `p-5 rounded ${isSender ? 'bg-light-primary text-end' : 'bg-light-info text-start'} text-dark fw-semibold mw-lg-400px`;
+
+                            const avatar = isSender ?
+                                `<img alt="Pic" src="{{ asset('images/user.jpg') }}" />` :
+                                `<img alt="Pic" src="/dokter-avatar.png" />`;
+
+                            const header = isSender ?
+                                `
+            <div class="me-3">
+                <span class="text-muted fs-7 mb-1">${msg.created_at}</span>
+                <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary ms-1">Anda</a>
+            </div>
+            <div class="symbol symbol-35px symbol-circle">
+                ${avatar}
+            </div>
+        ` :
+                                `
+            <div class="symbol symbol-35px symbol-circle">
+                ${avatar}
+            </div>
+            <div class="ms-3">
+                <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">${msg.sender_name}</a>
+                <span class="text-muted fs-7 mb-1">${msg.created_at}</span>
+            </div>
+        `;
+
+                            return `
+        <div class="${wrapperClass}">
+            <div class="${columnClass}">
+                <div class="d-flex align-items-center mb-2">
+                    ${header}
+                </div>
+                <div class="${bubbleClass}" data-kt-element="message-text">
+                    ${msg.pesan}
+                </div>
+            </div>
+        </div>
+    `;
+                        }
+
+                        chatContainer.append(bubble);
                     });
 
                     chatContainer.scrollTop(chatContainer[0].scrollHeight);
@@ -210,6 +203,9 @@
                 }
             });
         }
+
+        setInterval(loadMessages, 2000);
+        loadMessages();
     </script>
 
     {{-- <script>
