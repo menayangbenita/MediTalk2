@@ -205,34 +205,55 @@
 
                     response.messages.forEach(function(msg) {
                         const isSender = msg.sender_id == {{ Auth::user()->id }};
-                        const bubble = `
-                        <div class="d-flex justify-content-${isSender ? 'end' : 'start'} mb-10">
-                            <div class="d-flex flex-column align-items-${isSender ? 'end' : 'start'}">
-                                <div class="d-flex align-items-center mb-2">
-                                    ${isSender ? `
-                                            <div class="me-3">
-                                                <span class="text-muted fs-7 mb-1">${msg.created_at}</span>
-                                                <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary ms-1">Anda</a>
-                                            </div>
-                                            <div class="symbol symbol-35px symbol-circle">
-                                                <img alt="Pic" src="/default-avatar.png" />
-                                            </div>
-                                        ` : `
-                                            <div class="symbol symbol-35px symbol-circle">
-                                                <img alt="Pic" src="/dokter-avatar.png" />
-                                            </div>
-                                            <div class="ms-3">
-                                                <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">${msg.sender_name}</a>
-                                                <span class="text-muted fs-7 mb-1">${msg.created_at}</span>
-                                            </div>
-                                        `}
-                                </div>
-                                <div class="p-5 rounded ${isSender ? 'bg-light-primary text-end' : 'bg-light-info text-start'} text-dark fw-semibold mw-lg-400px" data-kt-element="message-text">
-                                    ${msg.pesan}
-                                </div>
-                            </div>
-                        </div>
-                    `;
+
+                        function renderMessage(msg, currentUserId) {
+                            const isSender = msg.sender_id === currentUserId;
+
+                            const wrapperClass =
+                                `d-flex justify-content-${isSender ? 'end' : 'start'} mb-10`;
+                            const columnClass =
+                                `d-flex flex-column align-items-${isSender ? 'end' : 'start'}`;
+                            const bubbleClass =
+                                `p-5 rounded ${isSender ? 'bg-light-primary text-end' : 'bg-light-info text-start'} text-dark fw-semibold mw-lg-400px`;
+
+                            const avatar = isSender ?
+                                `<img alt="Pic" src="{{ asset('images/user.jpg') }}" />` :
+                                `<img alt="Pic" src="/dokter-avatar.png" />`;
+
+                            const header = isSender ?
+                                `
+            <div class="me-3">
+                <span class="text-muted fs-7 mb-1">${msg.created_at}</span>
+                <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary ms-1">Anda</a>
+            </div>
+            <div class="symbol symbol-35px symbol-circle">
+                ${avatar}
+            </div>
+        ` :
+                                `
+            <div class="symbol symbol-35px symbol-circle">
+                ${avatar}
+            </div>
+            <div class="ms-3">
+                <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">${msg.sender_name}</a>
+                <span class="text-muted fs-7 mb-1">${msg.created_at}</span>
+            </div>
+        `;
+
+                            return `
+        <div class="${wrapperClass}">
+            <div class="${columnClass}">
+                <div class="d-flex align-items-center mb-2">
+                    ${header}
+                </div>
+                <div class="${bubbleClass}" data-kt-element="message-text">
+                    ${msg.pesan}
+                </div>
+            </div>
+        </div>
+    `;
+                        }
+
                         chatContainer.append(bubble);
                     });
 
