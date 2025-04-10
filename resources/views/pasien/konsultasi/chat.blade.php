@@ -29,67 +29,6 @@
         <div id="kt_app_content" class="app-content flex-column-fluid">
             <div id="kt_app_content_container" class="app-container container-xxl">
                 <div class="d-flex flex-column flex-lg-row">
-                    <div class="flex-column flex-lg-row-auto w-100 w-lg-300px w-xl-400px mb-10 mb-lg-0 order-1 order-lg-0">
-                        <div class="card card-flush">
-                            <div class="card-header pt-7" id="kt_chat_contacts_header">
-                                <form class="w-100 position-relative" autocomplete="off">
-                                    <i
-                                        class="ki-outline ki-magnifier fs-3 text-gray-500 position-absolute top-50 ms-5 translate-middle-y"></i>
-                                    <input type="text" class="form-control form-control-solid px-13" name="cari"
-                                        value="" placeholder="Cari..." />
-                                </form>
-                            </div>
-                            <div class="card-body pt-5" id="kt_chat_contacts_body">
-                                <div class="scroll-y me-n5 pe-5 h-200px h-lg-auto" data-kt-scroll="true"
-                                    data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto"
-                                    data-kt-scroll-dependencies="#kt_header, #kt_app_header, #kt_toolbar, #kt_app_toolbar, #kt_footer, #kt_app_footer, #kt_chat_contacts_header"
-                                    data-kt-scroll-wrappers="#kt_content, #kt_app_content, #kt_chat_contacts_body"
-                                    data-kt-scroll-offset="5px">
-                                    <div class="d-flex flex-stack py-4">
-                                        <div class="d-flex align-items-center">
-                                            <div class="symbol symbol-45px symbol-circle">
-                                                <img alt="Pic" src="/demo42/dist/assets/media/avatars/dokter.jpg" />
-                                            </div>
-                                            <div class="ms-5">
-                                                <a href="#"
-                                                    class="fs-5 fw-bold text-gray-900 text-hover-primary mb-2">Dr.
-                                                </a>
-                                                <div class="fw-semibold text-muted last-chat">Lorem
-                                                    ipsum dolor
-                                                    sit
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex flex-column align-items-end ms-2">
-                                            <span class="text-muted fs-7 mb-1">04.19</span>
-                                        </div>
-                                    </div>
-                                    <div class="separator separator-dashed d-none"></div>
-                                    <div class="d-flex flex-stack py-4">
-                                        <div class="d-flex align-items-center">
-                                            <div class="symbol symbol-45px symbol-circle">
-                                                <img alt="Pic" src="/demo42/dist/assets/media/avatars/dokter.jpg" />
-                                            </div>
-                                            <div class="ms-5">
-                                                <a href="#"
-                                                    class="fs-5 fw-bold text-gray-900 text-hover-primary mb-2">Dr.
-                                                    Kayea Alberich Sp.A</a>
-                                                <div class="fw-semibold text-muted last-chat">Lorem
-                                                    ipsum dolor
-                                                    sit amet Lorem ipsum dolor sit amet Lorem ipsum
-                                                    dolor sit amet Lorem ipsum dolor sit amet
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex flex-column align-items-end ms-2">
-                                            <span class="text-muted fs-7 mb-1">5/2/2025</span>
-                                            <span class="badge badge-sm badge-circle badge-light-success">6</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="flex-lg-row-fluid ms-lg-7 ms-xl-10 order-0 order-lg-1 mb-4">
                         <div class="card" id="kt_chat_messenger">
                             <div class="card-header" id="kt_chat_messenger_header">
