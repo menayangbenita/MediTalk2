@@ -5,6 +5,20 @@
 @section('content')
 
     <div class="d-flex flex-column flex-column-fluid">
+        <div id="kt_app_toolbar" class="app-toolbar pt-5 pt-lg-10">
+            <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack flex-wrap">
+                <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
+                    <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
+                        <h1 class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
+                            Master Laborat</h1>
+                        <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
+                            <li class="breadcrumb-item text-muted">
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div id="kt_app_content" class="app-content flex-column-fluid">
             <div id="kt_app_content_container" class="app-container container-xxl">
                 @if (session('success'))
@@ -18,7 +32,7 @@
                             <!--begin::Search-->
                             <div class="d-flex align-items-center position-relative my-1">
                                 <i class="ki-outline ki-magnifier fs-3 position-absolute ms-4"></i>
-                                <input type="text" data-kt-ecommerce-product-filter="search"
+                                <input type="text" data-kt-laborat-filter="search"
                                     class="form-control form-control-solid w-250px ps-12" placeholder="Cari Laborat" />
                             </div>
                             <!--end::Search-->
@@ -27,7 +41,7 @@
                         <!--begin::Card toolbar-->
                         <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
                             <button type="button" onclick="resetForm()" class="btn btn-primary" id="btnTambah"
-                                data-bs-toggle="modal" data-bs-target="#kt_tambah_dokter">
+                                data-bs-toggle="modal" data-bs-target="#kt_tambah_laborat">
                                 Tambah Laborat
                             </button>
                         </div>
@@ -37,7 +51,7 @@
                     <div class="card-body pt-0">
                         <!--begin::Table-->
                         <div class="table-responsive">
-                            <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_products_table">
+                            <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_laborat_table">
                                 <thead>
                                     <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                         <th class="text=center min-w25px">Nomor</th>
@@ -66,37 +80,6 @@
                                                         <i class="ki-solid ki-trash fs-2"></i>
                                                     </button>
                                                 </form>
-                                                {{-- <a href="#"
-                                                    class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
-                                                    data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Aksi
-                                                    <i class="ki-outline ki-down fs-5 ms-1"></i></a> --}}
-                                                <!--begin::Menu-->
-                                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
-                                                    data-kt-menu="true">
-                                                    <!--begin::Menu item-->
-                                                    <div class="menu-item px-3">
-                                                        <a data-id="{{ $laborat->id }}" data-nama="{{ $laborat->nama }}"
-                                                            data-email="{{ $laborat->email }}"
-                                                            data-password="{{ $laborat->password }}" data-bs-toggle="modal"
-                                                            data-bs-target="#kt_tambah_dokter"
-                                                            class="menu-link px-3 btnEdit">Edit</a>
-                                                    </div>
-                                                    <!--end::Menu item-->
-                                                    <!--begin::Menu item-->
-                                                    {{-- <div class="menu-item px-3">
-                                                        <form action="{{ route('laborat.index.hapus', $laborat->id) }}"
-                                                            method="POST"
-                                                            onsubmit="return confirm('Yakin ingin menghapus dokter ini?');">
-                                                            @csrf
-                                                            <button type="submit" class="menu-link px-3">Hapus</button>
-                                                        </form>
-                                                        <a href="{{ route('laborat.index.hapus') }}{{ $laborat->id }}"
-                                                            class="menu-link px-3"
-                                                            data-kt-ecommerce-product-filter="delete_row">Hapus</a>
-                                                    </div> --}}
-                                                    <!--end::Menu item-->
-                                                </div>
-                                                <!--end::Menu-->
                                             </td>
                                         </tr>
                                     @endforeach
@@ -111,7 +94,7 @@
             </div>
         </div>
 
-        <div class="modal fade" tabindex="-1" id="kt_tambah_dokter">
+        <div class="modal fade" tabindex="-1" id="kt_tambah_laborat">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable mw-850px">
                 <div class="modal-content rounded">
                     <div class="modal-header">
@@ -186,7 +169,7 @@
             </div>
         </div>
 
-        <div class="modal fade" tabindex="-1" id="kt_detail_dokter">
+        <div class="modal fade" tabindex="-1" id="kt_detail_laborat">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable mw-850px">
                 <div class="modal-content rounded">
                     <div class="modal-header">
@@ -378,89 +361,46 @@
             </div>
         </div>
 
-        <script src="../resources/js/custom/superadmin/dokter.js"></script>
         <script>
-            $(document).ready(function() {
-                $('#btnTambah').click(function() {
-                    form.action = "{{ route('laborat.index') }}";
-                    $('#dokterModalLabel').text('Tambah Dokter');
-                    $('#kt_tambah_dokter')[0].reset();
-                    $('#id').val('');
+            document.addEventListener("DOMContentLoaded", function() {
+                const table = $('#kt_laborat_table').DataTable({
+                    pageLength: 5,
+                    ordering: false,
+                    lengthMenu: [5, 10, 25, 50, 100],
+                    language: {
+                        search: "Cari:",
+                        paginate: {
+                            previous: "",
+                            next: ""
+                        },
+                        lengthMenu: "_MENU_",
+                        zeroRecords: "Data tidak ditemukan",
+                        info: "",
+                        infoEmpty: "Tidak ada data",
+                        infoFiltered: ""
+                    }
                 });
 
-                $('.btnEdit').click(function() {
-                    document.getElementById('password').disabled = true;
-                    $('#dokterModalLabel').text('Edit Dokter');
-                    $('#id').val($(this).data('id'));
-                    $('#nama').val($(this).data('nama'));
-                    $('#spesialis').val($(this).data('spesialis'));
-                    $('#email').val($(this).data('email'));
-                    $('#alumnus').val($(this).data('alumnus'));
-                    $('#str').val($(this).data('str'));
-                    $('#tempat_praktik').val($(this).data('tempat-praktik'));
-                    $('#mulai_praktik').val($(this).data('mulai-praktik'));
-                    $('#tarif').val($(this).data('tarif'));
-                    $('#maksimal_chat').val($(this).data('maksimal-chat'));
+                const inputSearch = document.querySelector('[data-kt-laborat-filter="search"]');
+                inputSearch.addEventListener('keyup', function() {
+                    table.search(this.value).draw();
+                });
 
-                    let form = document.getElementById('form-dokter');
-                    if (form) {
-                        form.action = form.getAttribute('data-url-edit');
+                $('[data-kt-laborat-filter="status"]').on('change', function() {
+                    const val = $(this).val();
+                    let keyword = '';
+
+                    if (val === "all" || val === "") {
+                        keyword = '';
+                    } else if (val === 'aktif') {
+                        keyword = 'Tersedia';
+                    } else if (val === 'tidak') {
+                        keyword = 'Tidak Tersedia';
                     }
 
-                    console.log("Form:", form);
-                    console.log("New Action:", form ? form.getAttribute('data-url-edit') : 'Form not found');
-
+                    table.column(5).search(keyword, false, true).draw();
                 });
-
-                // Handle Submit Form
-                // $('#kt_tambah_dokter').submit(function(e) {
-                //     e.preventDefault();
-                //     let dokterId = $('#id').val();
-                //     if (dokterId) {
-                //         alert('Update Dokter dengan ID: ' + dokterId);
-                //         // Lakukan AJAX UPDATE ke backend
-                //     } else {
-                //         alert('Tambah Dokter Baru');
-                //         // Lakukan AJAX INSERT ke backend
-                //     }
-                //     $('#dokterModal').modal('hide'); // Tutup modal
-                // });
             });
         </script>
-
-        {{-- <script>
-            function editDokter(dokter) {
-                document.getElementById("id").value = dokter.id;
-                document.getElementById("nama").value = dokter.nama;
-                document.getElementById("spesialis").value = dokter.spesialis;
-                document.getElementById("email").value = dokter.email;
-                document.getElementById("password").value = ""; // Kosongkan password
-                document.getElementById("alumnus").value = dokter.alumnus;
-                document.getElementById("nomor_str").value = dokter.str;
-                document.getElementById("tempat_praktik").value = dokter.tempat_praktik;
-                document.getElementById("lama_praktik").value = dokter.lama_praktik;
-                document.getElementById("tarif").value = dokter.tarif;
-                document.getElementById("maksimal_chat").value = dokter.maksimal_chat;
-
-                document.getElementById("dokterModalLabel").innerText = "Edit Dokter";
-                document.getElementById("kt_tambah_dokter").action = "/dokter/update/" + dokter.id;
-            }
-
-            function resetForm() {
-                document.getElementById("kt_tambah_dokter").reset();
-                document.getElementById("id").value = "";
-                document.getElementById("dokterModalLabel").innerText = "Tambah Dokter";
-                document.getElementById("kt_tambah_dokter").action = "/laborat.index";
-            }
-
-            document.addEventListener("click", function(event) {
-                if (event.target.classList.contains("btnEdit")) {
-                    let modal = event.target.closest(".modal");
-                    let passwordInput = modal.querySelector("#password");
-
-                    passwordInput.setAttribute("disabled", true);
-                }
-            });
-        </script> --}}
 
     @endsection

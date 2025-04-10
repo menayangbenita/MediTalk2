@@ -12,7 +12,7 @@ class RekamMedisController extends Controller
 {
     public function index()
     {
-        $rekamMedis = RekamMedis::with('pasien', 'dokter')->latest()->get();
+        $rekamMedis = RekamMedis::with('pasien', 'dokter')->orderBy('tanggal', 'desc')->get();
         $pasiens = Pasien::all();
         $dokters = Dokter::all();
         return view('laborat.rekam-medis', compact('rekamMedis', 'pasiens', 'dokters'));

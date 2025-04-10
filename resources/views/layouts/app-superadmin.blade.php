@@ -19,6 +19,7 @@
     <script src="{{ asset('plugins/global/plugins.bundle.js') }}"></script>
     <link href="{{ asset('plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="{{ asset('css/style.bundle.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}" />
 
     <title>@yield('title', 'MediTalk')</title>
 
@@ -100,7 +101,8 @@
 
 
                                 <div class="menu-item mb-2">
-                                    <a class="menu-link {{ request()->routeIs('dashboard.superadmin') ? 'active' : '' }}" href="{{ route('dashboard.superadmin') }}">
+                                    <a class="menu-link {{ request()->routeIs('dashboard.superadmin') ? 'active' : '' }}"
+                                        href="{{ route('dashboard.superadmin') }}">
                                         <span class="menu-icon">
                                             <i class="ki-outline ki-home fs-2"></i>
                                         </span>
@@ -111,19 +113,22 @@
                                     <div class="menu-content">
                                         <span class="menu-heading fw-bold text-uppercase fs-7">MANAJEMEN</span>
                                     </div>
-                                    <a class="menu-link" href="{{ route('dokter.create') }}">
+                                    <a class="menu-link {{ request()->routeIs('dokter.create') ? 'active' : '' }}"
+                                        href="{{ route('dokter.create') }}">
                                         <span class="menu-icon">
                                             <i class="bi bi-postcard-heart fs-2"></i>
                                         </span>
                                         <span class="menu-title">Master Dokter</span>
                                     </a>
-                                    <a class="menu-link" href="{{ route('laborat.index') }}">
+                                    <a class="menu-link {{ request()->routeIs('laborat.index') ? 'active' : '' }}"
+                                        href="{{ route('laborat.index') }}">
                                         <span class="menu-icon">
                                             <i class="bi bi-clipboard2-pulse fs-2"></i>
                                         </span>
                                         <span class="menu-title">Master Laborat</span>
                                     </a>
-                                    <a class="menu-link" href="{{ route('pasien.index') }}">
+                                    <a class="menu-link {{ request()->routeIs('pasien.index') ? 'active' : '' }}"
+                                        href="{{ route('pasien.index') }}">
                                         <span class="menu-icon">
                                             <i class="bi bi-person-vcard fs-2"></i>
                                         </span>
@@ -134,7 +139,8 @@
                                     <div class="menu-content">
                                         <span class="menu-heading fw-bold text-uppercase fs-7">Penarikan</span>
                                     </div>
-                                    <a class="menu-link" href="{{ route('penarikan.index') }}">
+                                    <a class="menu-link {{ request()->routeIs('penarikan.index') ? 'active' : '' }}"
+                                        href="{{ route('penarikan.index') }}">
                                         <span class="menu-icon">
                                             <i class="bi bi-credit-card-2-front fs-3"></i>
                                         </span>
@@ -154,7 +160,8 @@
                                 </div>
                                 <div class="d-flex flex-column align-items-start justify-content-center ms-3">
                                     <span class="text-gray-500 fs-8 fw-semibold">Selamat datang,</span>
-                                    <a href="#" class="text-gray-800 fs-7 fw-bold text-hover-primary">{{ Auth::user()->name }}</a>
+                                    <a href="#"
+                                        class="text-gray-800 fs-7 fw-bold text-hover-primary">{{ Auth::user()->name }}</a>
                                 </div>
                             </div>
                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-275px"
@@ -165,7 +172,8 @@
                                             <img alt="Logo" src="{{ asset('images/user.jpg') }}" />
                                         </div>
                                         <div class="d-flex flex-column">
-                                            <div class="fw-bold d-flex align-items-center fs-5">{{ Auth::user()->name }}
+                                            <div class="fw-bold d-flex align-items-center fs-5">
+                                                {{ Auth::user()->name }}
                                             </div>
                                         </div>
                                     </div>
@@ -220,7 +228,8 @@
                                 <div class="menu-item px-5">
                                     <form action="{{ route('logout') }}" method="POST">
                                         @csrf
-                                        <button type="submit" class="btn btn-link btn-color-danger w-100 text-danger rounded">Keluar</button>
+                                        <button type="submit"
+                                            class="btn btn-link btn-color-danger w-100 text-danger rounded">Keluar</button>
                                     </form>
                                     {{-- <a href="{{ route('logout') }}" class="">Keluar</a> --}}
                                 </div>
@@ -264,14 +273,7 @@
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-    <script>
-        $("#tabel_perawat_jaga").DataTable({
-            "scrollX": true
-        });
-        $("#tabel_saran_kritik").DataTable({
-            "scrollX": true
-        });
-    </script>
+    <script src="{{ asset('plugins/custom/datatables/datatables.bundle.js') }}"></script>
 
 </body>
 
