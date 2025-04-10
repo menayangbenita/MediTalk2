@@ -152,6 +152,31 @@
     </div>
 
     <script>
+        $.ajax({
+            url: 'https://meditalk.catalogrpl.com/public/chat/send',
+            method: 'POST',
+            data: {
+                sesi_id: 11,
+                message: $('#message-input').val(), // misalnya ambil dari input
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                $('#chat-box').append(`
+            <div class="chat-message outgoing">
+                <p>${$('#message-input').val()}</p>
+            </div>
+        `);
+
+                // Kosongkan input
+                $('#message-input').val('');
+            },
+            error: function(xhr) {
+                alert('Gagal mengirim pesan.');
+            }
+        });
+    </script>
+
+    {{-- <script>
         function loadMessages() {
             $.ajax({
                 url: "https://living-salmon-completely.ngrok-free.app/MediTalk/public/chatget",
@@ -231,9 +256,9 @@
 
         setInterval(loadMessages, 500);
         loadMessages();
-    </script>
+    </script> --}}
 
-    <script>
+    {{-- <script>
         fetch('/api/get-messages')
             .then(response => response.json())
             .then(data => {
@@ -241,7 +266,7 @@
                 updateChatUI(data.messages); // Pastikan ada fungsi untuk update tampilan chat
             })
             .catch(error => console.error('Error fetching messages:', error));
-    </script>
+    </script> --}}
 
     {{-- <script>
         $("#sendMessageForm").submit(function(e) {
