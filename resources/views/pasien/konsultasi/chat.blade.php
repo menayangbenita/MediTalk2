@@ -96,12 +96,12 @@
                                 <div class="card-title">
                                     <div class="d-flex justify-content-center flex-column me-3">
                                         <a href="#"
-                                            class="fs-4 fw-bold text-gray-900 text-hover-primary me-1 mb-2 lh-1">{{ $konsultasis->dokter->nama }}</a>
+                                            class="fs-4 fw-bold text-gray-900 text-hover-primary me-1 mb-2 lh-1">{{ $sesi->dokter->nama }}</a>
                                         <div class="mb-0 lh-1">
-                                            @if ($konsultasis->dokter->status_chat == 'Tersedia')
+                                            @if ($sesi->dokter->status == 'aktif')
                                                 <span class="badge badge-success badge-circle w-10px h-10px me-1"></span>
                                                 <span class="fs-7 fw-semibold text-muted">Online</span>
-                                            @elseif ($konsultasis->dokter->status_chat == 'Tidak Tersedia')
+                                            @elseif ($sesi->dokter->status == 'tidak')
                                                 <span class="badge badge-light badge-circle w-10px h-10px me-1"></span>
                                                 <span class="fs-7 fw-semibold text-muted">Offline</span>
                                             @else
