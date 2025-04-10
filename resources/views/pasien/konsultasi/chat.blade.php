@@ -156,22 +156,19 @@
             url: 'https://meditalk.catalogrpl.com/public/chat/send',
             method: 'POST',
             data: {
-                sesi_id: 11,
-                message: $('#message-input').val(), // misalnya ambil dari input
-                _token: $('meta[name="csrf-token"]').attr('content')
+                sesi_id: $('#sesi_id').val(),
+                pesan: $('#pesan').val(),
+                sender_id: $('#sender_id').val(),
+                _token: $('meta[name="csrf-token"]').attr('content'),
             },
             success: function(response) {
-                $('#chat-box').append(`
-            <div class="chat-message outgoing">
-                <p>${$('#message-input').val()}</p>
-            </div>
-        `);
-
-                // Kosongkan input
-                $('#message-input').val('');
+                alert(response.message);
+                if (response.redirect) {
+                    window.location.href = response.redirect;
+                }
             },
             error: function(xhr) {
-                alert('Gagal mengirim pesan.');
+                alert('Gagal mengirim pesan');
             }
         });
     </script>

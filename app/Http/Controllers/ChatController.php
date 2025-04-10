@@ -53,7 +53,10 @@ class ChatController extends Controller
             'pesan' => $request->message,
         ]);
 
-        return response()->json($chat);
+        return response()->json([
+            'message' => 'Pesan berhasil dikirim.',
+            'redirect' => route('pasien.chat', $request->sesi_id)
+        ]);
     }
 
 
