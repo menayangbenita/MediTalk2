@@ -16,8 +16,13 @@ use App\Http\Controllers\RekamMedisController;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('landing.index');
 });
+
+
+Route::get('/dokter-kami', function () {
+    return view('landing.dokter-kami');
+})->name('dokterkami');
 
 Route::get('/register', [PasienAuthController::class, 'showRegistrationForm'])->name('pasien.register.form');
 Route::post('/register', [Register::class, 'registerPasien'])->name('register');
