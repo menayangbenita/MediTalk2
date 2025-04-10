@@ -20,6 +20,7 @@
     <script src="{{ asset('plugins/global/plugins.bundle.js') }}"></script>
     <link href="{{ asset('plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="{{ asset('css/style.bundle.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}" />
 
     <title>@yield('title', 'MediTalk')</title>
 
@@ -246,6 +247,7 @@
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    <script src="{{ asset('plugins/custom/datatables/datatables.bundle.js') }}"></script>
 
 </body>
 

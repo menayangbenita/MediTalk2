@@ -27,7 +27,7 @@
                             <!--begin::Search-->
                             <div class="d-flex align-items-center position-relative my-1">
                                 <i class="ki-outline ki-magnifier fs-3 position-absolute ms-4"></i>
-                                <input type="text" data-kt-ecommerce-product-filter="search"
+                                <input type="text" data-kt-rekam-filter="search"
                                     class="form-control form-control-solid w-250px ps-12" placeholder="Cari Rekam Medis" />
                             </div>
                             <!--end::Search-->
@@ -46,7 +46,7 @@
                     <div class="card-body pt-0">
                         <!--begin::Table-->
                         <div class="table-responsive">
-                            <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_products_table">
+                            <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_rekam_table">
                                 <thead>
                                     <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                         <th class="min-w-150px">Dokter</th>
@@ -339,6 +339,47 @@
                 $('#detailSpesialis').text($(this).data('spesialis'));
                 $('#detailStr').text($(this).data('str'));
                 $('#detailUmur').text($(this).data('umur') + ' tahun');
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const table = $('#kt_rekam_table').DataTable({
+                pageLength: 5,
+                ordering: false,
+                lengthMenu: [5, 10, 25, 50, 100],
+                language: {
+                    search: "Cari:",
+                    paginate: {
+                        previous: "",
+                        next: ""
+                    },
+                    lengthMenu: "_MENU_",
+                    zeroRecords: "Data tidak ditemukan",
+                    info: "",
+                    infoEmpty: "Tidak ada data",
+                    infoFiltered: ""
+                }
+            });
+
+            const inputSearch = document.querySelector('[data-kt-rekam-filter="search"]');
+            inputSearch.addEventListener('keyup', function() {
+                table.search(this.value).draw();
+            });
+
+            $('[data-kt-pasien-filter="status"]').on('change', function() {
+                const val = $(this).val();
+                let keyword = '';
+
+                if (val === "all" || val === "") {
+                    keyword = '';
+                } else if (val === 'aktif') {
+                    keyword = 'Tersedia';
+                } else if (val === 'tidak') {
+                    keyword = 'Tidak Tersedia';
+                }
+
+                table.column(5).search(keyword, false, true).draw();
             });
         });
     </script>
