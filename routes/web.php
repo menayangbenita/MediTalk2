@@ -17,7 +17,7 @@ use App\Http\Controllers\RekamMedisController;
 
 Route::get('/', function () {
     return view('landing.index');
-});
+})->name('landing');
 
 
 Route::get('/dokter-kami', function () {

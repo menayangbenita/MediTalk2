@@ -53,14 +53,14 @@
     <header id="header" class="header d-flex align-items-center sticky-top">
         <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
-            <a href="index.html" class="logo d-flex align-items-center me-auto">
-                <img src="assets/img/meditalk_textlogo.png" alt="">
+            <a href="{{ route('landing') }}" class="logo d-flex align-items-center me-auto">
+                <img src="{{ asset('landing/img/meditalk_textlogo.png') }}" alt="">
             </a>
 
             <nav id="navmenu" class="navmenu">
                 <ul>
-                    <li><a href="index.html">Beranda<br></a></li>
-                    <li><a href="dokter_kami.html" class="active">Dokter Kami</a></li>
+                    <li><a href="{{ route('landing') }}">Beranda<br></a></li>
+                    <li><a href="{{ route('dokterkami') }}" class="active">Dokter Kami</a></li>
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
@@ -76,7 +76,7 @@
             <div class="container">
                 <nav class="breadcrumbs">
                     <ol>
-                        <li><a href="index.html">Beranda</a></li>
+                        <li><a href="{{ route('landing') }}">Beranda</a></li>
                         <li class="current">Dokter Kami</li>
                     </ol>
                 </nav>
@@ -131,7 +131,7 @@
         <div class="container">
             <div class="copyright text-center ">
                 <p>©<span id="currentYear"></span><a class="px-1 sitename" style="font-weight: 600;"
-                        href="index.html">MediTalk</a>All Rights Reserved.</p>
+                        href="{{ route('landing') }}">MediTalk</a>All Rights Reserved.</p>
 
                 <script>
                     document.getElementById('currentYear').textContent = new Date().getFullYear();
@@ -293,7 +293,7 @@
     </script>
 
     <!-- Main JS File -->
-    <script src="assets/js/main.js"></script>
+    <script src="{{ asset('landing/js/main.js') }}"></script>
 
     <script>
         $(document).ready(function() {
