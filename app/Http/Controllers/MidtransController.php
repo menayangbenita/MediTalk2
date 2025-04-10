@@ -85,7 +85,7 @@ class MidtransController extends Controller
         }
 
         if (in_array($transactionStatus, ['settlement', 'capture'])) {
-            $transaksi->update(['payment_status' => 'settlement']); 
+            $transaksi->update(['payment_status' => 'settlement']);
 
             $konsultasi = SesiKonsultasi::create([
                 'dokter_id' => $transaksi->dokter_id,
@@ -93,7 +93,7 @@ class MidtransController extends Controller
                 'pembayaran_id' => $transaksi->order_id,
                 'status' => 'ongoing',
                 'waktu_mulai' => now(),
-                'waktu_selesai' => now()->addMinutes(60), 
+                'waktu_selesai' => now()->addMinutes(60),
             ]);
 
             Log::info("Sesi konsultasi dimulai untuk transaksi: $orderId");
@@ -152,46 +152,45 @@ class MidtransController extends Controller
     }
 
     public function handleManualWebhook(Request $request)
-{
-    if ($request->secret !== 'MediTalkJaya') {
-        return response()->json(['error' => 'Unauthorized'], 401);
-    }
-
-    $orderId = $request->query('order_id');
-    $statusCode = $request->query('status_code');
-    $transactionStatus = $request->query('transaction_status');
-
-    if (!$orderId || !$statusCode || !$transactionStatus) {
-        return response()->json(['error' => 'Missing parameters'], 400);
-    }
-
-    $transaksi = Transaksi::where('order_id', $orderId)->first();
-
-    if (!$transaksi) {
-        return response()->json(['error' => 'Transaction not found'], 404);
-    }
-
-    // Jika pembayaran sukses
-    if ($transactionStatus === 'settlement' && $statusCode == 200) {
-        $transaksi->update(['payment_status' => 'settlement']);
-
-        // Cek apakah sesi konsultasi sudah dibuat
-        $existingKonsultasi = \App\Models\Konsultasi::where('transaksi_id', $transaksi->id)->first();
-        if (!$existingKonsultasi) {
-            $konsultasi = \App\Models\Konsultasi::create([
-                'dokter_id' => $transaksi->dokter_id,
-                'pasien_id' => $transaksi->user_id,
-                'pembayaran_id' => $transaksi->id,
-                'status' => 'ongoing',
-                'start_time' => now(),
-                'end_time' => now()->addMinutes(60),
-            ]);
+    {
+        if ($request->secret !== 'MediTalkJaya') {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        return response()->json(['message' => 'Pembayaran berhasil dan sesi konsultasi dimulai.']);
+        $orderId = $request->query('order_id');
+        $statusCode = $request->query('status_code');
+        $transactionStatus = $request->query('transaction_status');
+
+        if (!$orderId || !$statusCode || !$transactionStatus) {
+            return response()->json(['error' => 'Missing parameters'], 400);
+        }
+
+        $transaksi = Transaksi::where('order_id', $orderId)->first();
+
+        if (!$transaksi) {
+            return response()->json(['error' => 'Transaction not found'], 404);
+        }
+
+        // Jika pembayaran sukses
+        if ($transactionStatus === 'settlement' && $statusCode == 200) {
+            $transaksi->update(['payment_status' => 'settlement']);
+
+            // Cek apakah sesi konsultasi sudah dibuat
+            $existingKonsultasi = SesiKonsultasi::where('pembayaran_id', $transaksi->id)->first();
+            if (!$existingKonsultasi) {
+                $konsultasi = SesiKonsultasi::create([
+                    'dokter_id' => $transaksi->dokter_id,
+                    'pasien_id' => $transaksi->user_id,
+                    'pembayaran_id' => $transaksi->id,
+                    'status' => 'ongoing',
+                    'start_time' => now(),
+                    'end_time' => now()->addMinutes(60),
+                ]);
+            }
+
+            return response()->json(['message' => 'Pembayaran berhasil dan sesi konsultasi dimulai.']);
+        }
+
+        return response()->json(['message' => 'Transaksi tidak diproses karena status bukan settlement.']);
     }
-
-    return response()->json(['message' => 'Transaksi tidak diproses karena status bukan settlement.']);
-}
-
 }
