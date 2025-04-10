@@ -101,7 +101,7 @@
 
 
                                 <div class="menu-item pt-5 mb-2">
-                                    <a class="menu-link active" href="{{ route('laborat.dashboard') }}">
+                                    <a class="menu-link {{ request()->routeIs('laborat.dashboard') ? 'active' : '' }}" href="{{ route('laborat.dashboard') }}">
                                         <span class="menu-icon">
                                             <i class="ki-outline ki-home fs-2"></i>
                                         </span>
@@ -113,7 +113,7 @@
                                     <div class="menu-content">
                                         <span class="menu-heading fw-bold text-uppercase fs-7">REKAM MEDIS</span>
                                     </div>
-                                    <a class="menu-link" href="{{ route('laborat.rekammedis.index') }}">
+                                    <a class="menu-link {{ request()->routeIs('laborat.rekammedis.index') ? 'active' : '' }}" href="{{ route('laborat.rekammedis.index') }}">
                                         <span class="menu-icon">
                                             <i class="bi bi-postcard-heart fs-2"></i>
                                         </span>

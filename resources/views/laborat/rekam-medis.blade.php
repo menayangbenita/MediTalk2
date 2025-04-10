@@ -88,9 +88,9 @@
 >
                                                     <i class="ki-solid ki-information-2 fs-2"></i>
                                                 </a>
-                                                <button type="submit" class="btn btn-icon btn-light-primary fs-7 me-2">
+                                                <a href="{{ route('laborat.rekammedis.edit', $rekam->id) }}" class="btn btn-icon btn-light-primary fs-7 me-2">
                                                     <i class="ki-solid ki-pencil fs-2"></i>
-                                                </button>
+                                                </a>
                                                 <form action="{{ route('laborat.rekammedis.destroy', $rekam->id) }}"
                                                     method="POST"
                                                     onsubmit="return confirm('Yakin ingin menghapus rekam medis ini?');">
@@ -285,7 +285,7 @@
                                     <span class="required">Anamnesis</span>
                                 </label>
                                 <!--end::Label-->
-                                <textarea name="anamnesis" id="detailAnamnesis" class="form-control form-control-solid" rows="1"
+                                <textarea name="anamnesis" id="detailAnamnesis" class="form-control form-control-solid" rows="3"
                                     placeholder="Cth: Sakit tenggorokan" readonly></textarea>
                             </div>
                             <div class="col-lg-6 mb-8">
@@ -294,7 +294,7 @@
                                     <span class="required">Tanda-tanda Vital</span>
                                 </label>
                                 <!--end::Label-->
-                                <textarea name="tanda_vital" id="detailTanda_vital" class="form-control form-control-solid" rows="1"
+                                <textarea name="tanda_vital" id="detailTanda_vital" class="form-control form-control-solid" rows="3"
                                     placeholder="Cth: Suhu: 37.5°C, RR: 20" readonly></textarea>
                             </div>
                         </div>
@@ -304,14 +304,14 @@
                                 <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                     <span class="required">Diagnosis</span>
                                 </label>
-                                <textarea name="diagnosis" id="detailDiagnosis" class="form-control form-control-solid" rows="1"
+                                <textarea name="diagnosis" id="detailDiagnosis" class="form-control form-control-solid" rows="3"
                                     placeholder="Cth: Tonsilitis" readonly></textarea>
                             </div>
                             <div class="col-lg-6 mb-8">
                                 <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                     <span class="required">Medikasi</span>
                                 </label>
-                                <textarea name="medikasi" id="detailMedikasi" class="form-control form-control-solid" rows="1"
+                                <textarea name="medikasi" id="detailMedikasi" class="form-control form-control-solid" rows="3"
                                     placeholder="Cth: Paracetamol 500mg" readonly></textarea>
                             </div>
                         </div>

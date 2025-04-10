@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Konsultasi;
+use App\Models\RekamMedis;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardPasienController extends Controller
@@ -13,19 +14,21 @@ class DashboardPasienController extends Controller
     {
         $user = Auth::user();
 
+        $rekammedispasien = RekamMedis::where('pasien_id', Auth::user()->id)
+        ->orderBy('tanggal', 'desc')
+        ->take(3)
+        ->get(); 
         $konsultasi = Konsultasi::where('pasien_id', $user->id)->latest()->first();
 
-        $status = 'belum'; // default jika belum pernah konsultasi
+        $status = 'belum'; 
 
         if ($konsultasi) {
-            // Cek jika status sedang berlangsung atau pending
             if (in_array($konsultasi->status, ['pending', 'berlangsung'])) {
-                // Jika waktu sesi sudah lewat tapi status belum selesai
                 if ($konsultasi->end_time && Carbon::now()->gt($konsultasi->end_time)) {
                     $status = 'ended';
                     $konsultasi->update(['status' => 'selesai']);
                 } else {
-                    $status = $konsultasi->status; // tetap 'pending' atau 'berlangsung'
+                    $status = $konsultasi->status; 
                 }
             } elseif ($konsultasi->status === 'selesai') {
                 $status = 'ended';
@@ -34,6 +37,6 @@ class DashboardPasienController extends Controller
             }
         }
 
-        return view('pasien.dashboard.index', compact('konsultasi', 'status'));
+        return view('pasien.dashboard.index', compact('konsultasi', 'status', 'rekammedispasien'));
     }
 }

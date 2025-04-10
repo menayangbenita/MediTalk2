@@ -2,7 +2,7 @@
     style="background: background: linear-gradient(45deg, #C62828, #B0BEC5); min-height: 160px;
                         height: auto;">
     <div class="card-body d-flex flex-column position-relative">
-        <a href="./konsultasi.html"
+        <a href="{{ route('konsultasi') }}"
             class="btn btn-outline btn-outline-dashed btn-outline-secondary position-absolute bottom-0 end-0 m-5">
             Ajukan Konsultasi Baru
         </a>

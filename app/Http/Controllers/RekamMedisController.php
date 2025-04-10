@@ -37,7 +37,7 @@ class RekamMedisController extends Controller
         $rekam = RekamMedis::findOrFail($id);
         $pasiens = Pasien::all();
         $dokters = User::where('role', 'dokter')->get();
-        return view('laborat.rekam-medis.edit', compact('rekam', 'pasiens', 'dokters'));
+        return view('laborat.edit-rekam-medis', compact('rekam', 'pasiens', 'dokters'));
     }
 
     public function update(Request $request, $id)
@@ -45,7 +45,7 @@ class RekamMedisController extends Controller
         $rekam = RekamMedis::findOrFail($id);
         $rekam->update($request->all());
 
-        return redirect()->route('rekam-medis.index')->with('success', 'Rekam medis berhasil diperbarui.');
+        return redirect()->route('laborat.rekammedis.index')->with('success', 'Rekam medis berhasil diperbarui.');
     }
 
     public function destroy($id)

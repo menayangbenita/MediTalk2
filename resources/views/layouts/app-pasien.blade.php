@@ -98,7 +98,8 @@
                             <div class="menu menu-column menu-rounded menu-sub-indention fw-semibold px-1"
                                 id="#kt_app_sidebar_menu" data-kt-menu="true" data-kt-menu-expand="false">
                                 <div class="menu-item pt-5">
-                                    <a class="menu-link active" href="{{ route('dashboard.pasien') }}">
+                                    <a class="menu-link {{ request()->routeIs('dashboard.pasien') ? 'active' : '' }}"
+                                        href="{{ route('dashboard.pasien') }}">
                                         <span class="menu-icon">
                                             <i class="ki-outline ki-home fs-2"></i>
                                         </span>
@@ -111,7 +112,7 @@
                                     </div>
                                 </div>
                                 <div class="menu-item">
-                                    <a class="menu-link" href="{{ route('rekammedis') }}">
+                                    <a class="menu-link {{ request()->routeIs('rekammedis') ? 'active' : '' }}" href="{{ route('rekammedis') }}">
                                         <span class="menu-icon">
                                             <i class="bi bi-journal-medical fs-2"></i>
                                         </span>
@@ -123,7 +124,8 @@
                                         <span class="menu-heading fw-bold text-uppercase fs-7">KONSULTASI</span>
                                     </div>
                                 </div>
-                                <div data-kt-menu-trigger="click" class="menu-item menu-accordion show">
+                                <div data-kt-menu-trigger="click"
+                                    class="menu-item menu-accordion {{ request()->routeIs('konsultasi', 'riwayat.konsultasi') ? 'show' : '' }}">
                                     <span class="menu-link">
                                         <span class="menu-icon">
                                             <i class="ki-outline ki-messages fs-2"></i>
@@ -133,7 +135,8 @@
                                     </span>
                                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                                         <div class="menu-item">
-                                            <a class="menu-link" href="{{ route('konsultasi') }}">
+                                            <a class="menu-link {{ request()->routeIs('konsultasi') ? 'active' : '' }}"
+                                                href="{{ route('konsultasi') }}">
                                                 <span class="menu-bullet">
                                                     <span class="bullet bullet-dot"></span>
                                                 </span>
@@ -141,7 +144,8 @@
                                             </a>
                                         </div>
                                         <div class="menu-item">
-                                            <a class="menu-link" href="{{ route('riwayat.konsultasi') }}">
+                                            <a class="menu-link {{ request()->routeIs('riwayat.konsultasi') ? 'active' : '' }}"
+                                                href="{{ route('riwayat.konsultasi') }}">
                                                 <span class="menu-bullet">
                                                     <span class="bullet bullet-dot"></span>
                                                 </span>

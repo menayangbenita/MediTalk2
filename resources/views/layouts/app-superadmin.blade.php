@@ -100,7 +100,7 @@
 
 
                                 <div class="menu-item mb-2">
-                                    <a class="menu-link active" href="{{ route('dashboard.superadmin') }}">
+                                    <a class="menu-link {{ request()->routeIs('dashboard.superadmin') ? 'active' : '' }}" href="{{ route('dashboard.superadmin') }}">
                                         <span class="menu-icon">
                                             <i class="ki-outline ki-home fs-2"></i>
                                         </span>
@@ -172,7 +172,7 @@
                                 </div>
                                 <div class="separator my-2"></div>
                                 <div class="menu-item px-5">
-                                    <a href="/demo42/dist/account/overview.html" class="menu-link px-5">Profil
+                                    <a href="{{ route('profil.show') }}" class="menu-link px-5">Profil
                                         Saya</a>
                                 </div>
                                 <div class="separator my-2"></div>
