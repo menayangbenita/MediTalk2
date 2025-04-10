@@ -176,14 +176,21 @@ class MidtransController extends Controller
             $transaksi->update(['status' => 'settlement']);
 
             $existingKonsultasi = SesiKonsultasi::where('pembayaran_id', $transaksi->id)->first();
+
             if (!$existingKonsultasi) {
-                $konsultasi = SesiKonsultasi::create([
+                SesiKonsultasi::create([
                     'dokter_id' => $transaksi->dokter_id,
                     'pasien_id' => $transaksi->user_id,
                     'pembayaran_id' => $transaksi->id,
+                    'status' => 'ongoing',
                     'waktu_mulai' => now(),
                     'waktu_selesai' => now()->addMinutes(60),
+                ]);
+            } else {
+                $existingKonsultasi->update([
                     'status' => 'ongoing',
+                    'waktu_mulai' => now(),
+                    'waktu_selesai' => now()->addMinutes(60),
                 ]);
             }
 
