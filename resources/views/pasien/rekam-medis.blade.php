@@ -17,14 +17,22 @@
         <div id="kt_app_content" class="app-content flex-column-fluid">
             <div id="kt_app_content_container" class="app-container container-xxl">
                 <div class="card mb-5 mb-xl-5 box-shadow">
-                    <div class="card-header ">
-                        <div class="card-title m-0">
-                            <h3 class="fw-bold m-0">Hasil Rekam Medis</h3>
+                    <div class="card-header align-items-center py-5 gap-2 gap-md-5">
+                        <!--begin::Card title-->
+                        <div class="card-title">
+                            <!--begin::Search-->
+                            <div class="d-flex align-items-center position-relative my-1">
+                                <i class="ki-outline ki-magnifier fs-3 position-absolute ms-4"></i>
+                                <input type="text" data-kt-rekam-filter="search"
+                                    class="form-control form-control-solid w-250px ps-12" placeholder="Cari Rekam Medis" />
+                            </div>
+                            <!--end::Search-->
                         </div>
+                        <!--end::Card title-->
                     </div>
-                    <div class="card-body p-9">
+                    <div class="card-body p-9 pt-0">
                         <div class="table-responsive">
-                            <table id="tabel_rekam_medis"
+                            <table id="kt_rekam_table"
                                 class="table align-middle table-row-dashed fs-6 gy-5">
                                 <thead>
                                     <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0 e">
@@ -61,4 +69,46 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const table = $('#kt_rekam_table').DataTable({
+                pageLength: 5,
+                ordering: false,
+                lengthMenu: [5, 10, 25, 50, 100],
+                language: {
+                    search: "Cari:",
+                    paginate: {
+                        previous: "",
+                        next: ""
+                    },
+                    lengthMenu: "_MENU_",
+                    zeroRecords: "Data tidak ditemukan",
+                    info: "",
+                    infoEmpty: "Tidak ada data",
+                    infoFiltered: ""
+                }
+            });
+
+            const inputSearch = document.querySelector('[data-kt-rekam-filter="search"]');
+            inputSearch.addEventListener('keyup', function() {
+                table.search(this.value).draw();
+            });
+
+            $('[data-kt-pasien-filter="status"]').on('change', function() {
+                const val = $(this).val();
+                let keyword = '';
+
+                if (val === "all" || val === "") {
+                    keyword = '';
+                } else if (val === 'aktif') {
+                    keyword = 'Tersedia';
+                } else if (val === 'tidak') {
+                    keyword = 'Tidak Tersedia';
+                }
+
+                table.column(5).search(keyword, false, true).draw();
+            });
+        });
+    </script>
 @endsection
