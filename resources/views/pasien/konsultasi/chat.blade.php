@@ -167,6 +167,7 @@
                         _token: $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(response) {
+                        console.log(response);
                         $('#messageInput').val('');
         
                         $('#kt_chat_messenger_body').append(`
