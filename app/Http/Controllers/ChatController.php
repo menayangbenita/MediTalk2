@@ -18,7 +18,7 @@ class ChatController extends Controller
             abort(403); 
         }
 
-        return view('pasien.chat', compact('sesi'));
+        return view('pasien.konsultasi.chat', compact('sesi'));
     }
 
     // Ambil pesan-pesan
@@ -36,7 +36,7 @@ class ChatController extends Controller
     {
         $request->validate([
             'sesi_id' => 'required|exists:sesi_konsultasis,id',
-            'message' => 'required|string',
+            'pesan' => 'required|string',
         ]);
 
         $sesi = SesiKonsultasi::findOrFail($request->sesi_id);
@@ -51,7 +51,7 @@ class ChatController extends Controller
         $chat = Chat::create([
             'sesi_id' => $sesi->id,
             'sender_id' => Auth::id(),
-            'message' => $request->message,
+            'pesan' => $request->message,
         ]);
 
         return response()->json($chat);
@@ -62,7 +62,7 @@ class ChatController extends Controller
     // {
     //     $request->validate([
     //         'sesi_id' => 'required|exists:sesi_konsultasi,id',
-    //         'message' => 'required|string'
+    //         'pesan' => 'required|string'
     //     ]);
 
     //     $sesi = SesiKonsultasi::find($request->sesi_id);
@@ -74,7 +74,7 @@ class ChatController extends Controller
     //     $chat = Chat::create([
     //         'sesi_id' => $request->sesi_id,
     //         'sender_id' => Auth::id(),
-    //         'message' => $request->message
+    //         'pesan' => $request->message
     //     ]);
 
     //     return response()->json($chat);
