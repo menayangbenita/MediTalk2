@@ -145,84 +145,82 @@
         });
     </script>
 
-    <script>
-        function loadMessages() {
-            $.ajax({
-                url: "{{ route('chat.messages', $sesi->id) }}",
-                method: "GET",
-                data: {
-                    _token: $('meta[name="csrf-token"]').attr('content'),
-                    sesi_id: $('#sesi_id').val(),
-                },
-                success: function(response) {
-                    const chatContainer = $('[data-kt-element="messages"]');
-                    chatContainer.html('');
+<script>
+    function loadMessages() {
+        $.ajax({
+            url: "{{ route('chat.messages', $sesi->id) }}",
+            method: "GET",
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                sesi_id: $('#sesi_id').val(),
+            },
+            success: function(response) {
+                const chatContainer = $('[data-kt-element="messages"]');
+                chatContainer.html(''); // clear existing messages
 
-                    response.messages.forEach(function(msg) {
-                        const isSender = msg.sender_id == {{ Auth::user()->id }};
+                response.messages.forEach(function(msg) {
+                    const html = renderMessage(msg, {{ Auth::user()->id }});
+                    chatContainer.append(html);
+                });
 
-                        function renderMessage(msg, currentUserId) {
-                            const isSender = msg.sender_id === currentUserId;
+                chatContainer.scrollTop(chatContainer[0].scrollHeight); // auto scroll
+            },
+            error: function(error) {
+                console.error("Gagal memuat pesan:", error);
+            }
+        });
+    }
 
-                            const wrapperClass =
-                                `d-flex justify-content-${isSender ? 'end' : 'start'} mb-10`;
-                            const columnClass =
-                                `d-flex flex-column align-items-${isSender ? 'end' : 'start'}`;
-                            const bubbleClass =
-                                `p-5 rounded ${isSender ? 'bg-light-primary text-end' : 'bg-light-info text-start'} text-dark fw-semibold mw-lg-400px`;
+    function renderMessage(msg, currentUserId) {
+        const isSender = msg.sender_id === currentUserId;
 
-                            const avatar = isSender ?
-                                `<img alt="Pic" src="{{ asset('images/user.jpg') }}" />` :
-                                `<img alt="Pic" src="/dokter-avatar.png" />`;
+        const wrapperClass = `d-flex justify-content-${isSender ? 'end' : 'start'} mb-10`;
+        const columnClass = `d-flex flex-column align-items-${isSender ? 'end' : 'start'}`;
+        const bubbleClass = `p-5 rounded ${isSender ? 'bg-light-primary text-end' : 'bg-light-info text-start'} text-dark fw-semibold mw-lg-400px`;
 
-                            const header = isSender ?
-                                `
-            <div class="me-3">
-                <span class="text-muted fs-7 mb-1">${msg.created_at}</span>
-                <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary ms-1">Anda</a>
-            </div>
-            <div class="symbol symbol-35px symbol-circle">
-                ${avatar}
-            </div>
-        ` :
-                                `
-            <div class="symbol symbol-35px symbol-circle">
-                ${avatar}
-            </div>
-            <div class="ms-3">
-                <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">${msg.sender_name}</a>
-                <span class="text-muted fs-7 mb-1">${msg.created_at}</span>
+        const avatar = isSender
+            ? `<img alt="Pic" src="{{ asset('images/user.jpg') }}" class="symbol symbol-35px symbol-circle" />`
+            : `<img alt="Pic" src="/dokter-avatar.png" class="symbol symbol-35px symbol-circle" />`;
+
+        const header = isSender
+            ? `
+                <div class="me-3">
+                    <span class="text-muted fs-7 mb-1">${msg.created_at}</span>
+                    <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary ms-1">Anda</a>
+                </div>
+                <div class="symbol symbol-35px symbol-circle">
+                    ${avatar}
+                </div>
+            `
+            : `
+                <div class="symbol symbol-35px symbol-circle">
+                    ${avatar}
+                </div>
+                <div class="ms-3">
+                    <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">${msg.sender_name}</a>
+                    <span class="text-muted fs-7 mb-1">${msg.created_at}</span>
+                </div>
+            `;
+
+        return `
+            <div class="${wrapperClass}">
+                <div class="${columnClass}">
+                    <div class="d-flex align-items-center mb-2">
+                        ${header}
+                    </div>
+                    <div class="${bubbleClass}" data-kt-element="message-text">
+                        ${msg.pesan}
+                    </div>
+                </div>
             </div>
         `;
+    }
 
-                            return `
-        <div class="${wrapperClass}">
-            <div class="${columnClass}">
-                <div class="d-flex align-items-center mb-2">
-                    ${header}
-                </div>
-                <div class="${bubbleClass}" data-kt-element="message-text">
-                    ${msg.pesan}
-                </div>
-            </div>
-        </div>
-    `;
-                        }
+    // Jalankan saat halaman ready
+    setInterval(loadMessages, 2000);
+    loadMessages();
+</script>
 
-                        chatContainer.append(bubble);
-                    });
-
-                    chatContainer.scrollTop(chatContainer[0].scrollHeight);
-                },
-                error: function(error) {
-                    console.error("Gagal memuat pesan:", error);
-                }
-            });
-        }
-
-        setInterval(loadMessages, 2000);
-        loadMessages();
-    </script>
 
     {{-- <script>
         fetch('/api/get-messages')
