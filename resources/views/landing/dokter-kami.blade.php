@@ -320,6 +320,10 @@
                 allowClear: true
             });
         });
+        $('#filterSpesialis').on('change', function () {
+        currentPage = 1;
+        filterAndRender();
+        });
     </script>
 
 </body>
