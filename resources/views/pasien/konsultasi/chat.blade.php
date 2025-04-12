@@ -155,6 +155,7 @@
                 sesi_id: $('#sesi_id').val(),
             },
             success: function(response) {
+                console.log("Response dari server:", response);
                 const chatContainer = $('[data-kt-element="messages"]');
                 chatContainer.html(''); // clear existing messages
 
