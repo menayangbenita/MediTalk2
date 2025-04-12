@@ -159,7 +159,7 @@
                 const chatContainer = $('[data-kt-element="messages"]');
                 chatContainer.html(''); // clear existing messages
 
-                response.messages.forEach(function(msg) {
+                response.forEach(function(msg) {
                     const html = renderMessage(msg, {{ Auth::user()->id }});
                     chatContainer.append(html);
                 });
