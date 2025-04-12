@@ -149,7 +149,7 @@
         function loadMessages() {
             $.ajax({
                 url: "{{ route('chat.messages', $sesi->id) }}",
-                method: "POST",
+                method: "GET",
                 data: {
                     _token: $('meta[name="csrf-token"]').attr('content'),
                     sesi_id: $('#sesi_id').val(),
