@@ -155,7 +155,6 @@
                 sesi_id: $('#sesi_id').val(),
             },
             success: function(response) {
-                console.log("Response dari server:", response);
                 const chatContainer = $('[data-kt-element="messages"]');
                 chatContainer.html(''); // clear existing messages
 
@@ -180,8 +179,8 @@
         const bubbleClass = `p-5 rounded ${isSender ? 'bg-light-primary text-end' : 'bg-light-info text-start'} text-dark fw-semibold mw-lg-400px`;
 
         const avatar = isSender
-            ? `<img alt="Pic" src="{{ asset('images/user.jpg') }}" class="symbol symbol-35px symbol-circle" />`
-            : `<img alt="Pic" src="/dokter-avatar.png" class="symbol symbol-35px symbol-circle" />`;
+            ? `<img alt="Pasien" src="{{ asset('images/user.jpg') }}" class="symbol symbol-35px symbol-circle" />`
+            : `<img alt="{{ $sesi->dokter->nama }}" src="{{ asset('storage/' . $sesi->dokter->foto) }}" class="symbol symbol-35px symbol-circle" />`;
 
         const header = isSender
             ? `
