@@ -55,7 +55,8 @@
                                         </div>
                                     </div>
                                     <div class="d-flex my-4">
-                                        <a href="{{ route('profil.show') }}" class="btn btn-sm btn-primary me-3">Lihat Profil
+                                        <a href="{{ route('profil.show') }}" class="btn btn-sm btn-primary me-3">Lihat
+                                            Profil
                                             Saya</a>
                                     </div>
                                 </div>
@@ -67,16 +68,15 @@
                     <div class="col-xl-6">
                         @if ($status === 'belum')
                             @include('pasien.dashboard.cards.belum')
-                        @elseif ($status === 'pending')
+                        @elseif ($status === 'menunggu')
                             @include('pasien.dashboard.cards.pending')
-                        @elseif ($status === 'berlangsung')
+                        @elseif ($status === 'berjalan')
                             @include('pasien.dashboard.cards.berlangsung')
-                        @elseif ($status === 'ended')
-                            @include('pasien.dashboard.cards.ended')
+                        @elseif ($status === 'selesai')
+                            @include('pasien.dashboard.cards.selesai')
                         @elseif ($status === 'hangus')
                             @include('pasien.dashboard.cards.hangus')
                         @endif
-
                     </div>
                     <div class="col-xl-6">
                         <div class="card card-xl-stretch mb-5">
@@ -91,16 +91,20 @@
                                         <i class="bi bi-file-earmark-medical fs-3x me-4"></i>
                                         <div class="d-flex flex-row-fluid align-items-center flex-wrap my-lg-0 me-2">
                                             <div class="flex-grow-1 my-lg-0 mb-2 me-2">
-                                                <div class="text-gray-800 fw-bold text-hover-primary fs-6">{{ $rekam->dokter->nama }}</div>
-                                                <span class="text-muted fw-semibold d-block pt-1">{{ \Carbon\Carbon::parse($rekam->tanggal)->translatedFormat('d F Y') }}</span>
+                                                <div class="text-gray-800 fw-bold text-hover-primary fs-6">
+                                                    {{ $rekam->dokter->nama }}</div>
+                                                @php
+                                                    Carbon::setLocale('id');
+                                                @endphp
+                                                <span
+                                                    class="text-muted fw-semibold d-block pt-1">{{ Carbon::parse($rekam->tanggal)->translatedFormat('d F Y') }}</span>
                                             </div>
                                             <div class="d-flex align-items-center">
-                                                <a class="btn btn-primary btnDetail btn-sm border-0"
-                                                    data-bs-toggle="modal" data-bs-target="#kt_detail_rekammedis" 
-                                                    data-id="{{ $rekam->id }}" 
-                                                    data-anamnesis="{{ $rekam->anamnesis }}" 
-                                                    data-tanda-vital="{{ $rekam->tanda_vital }}" 
-                                                    data-diagnosis="{{ $rekam->diagnosis }}" 
+                                                <a class="btn btn-primary btnDetail btn-sm border-0" data-bs-toggle="modal"
+                                                    data-bs-target="#kt_detail_rekammedis" data-id="{{ $rekam->id }}"
+                                                    data-anamnesis="{{ $rekam->anamnesis }}"
+                                                    data-tanda-vital="{{ $rekam->tanda_vital }}"
+                                                    data-diagnosis="{{ $rekam->diagnosis }}"
                                                     data-medikasi="{{ $rekam->medikasi }}"
                                                     data-pasien="{{ $rekam->pasien->nama }}"
                                                     data-rekammedis="{{ $rekam->pasien->rekammedis }}"

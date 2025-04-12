@@ -9,12 +9,16 @@ use App\Console\Commands\CheckPendingKonsultasi;
 use App\Console\Commands\CheckKonsultasiTimeout;
 use App\Console\Commands\CheckResponseTimeout;
 use App\Console\Commands\CheckKonsultasiSelesai;
+use App\Console\Commands\UpdateKonsultasiStatus;
 
 class Kernel extends ConsoleKernel
 {
     /**
      * Register the commands for the application.
      */
+    protected $commands = [
+        UpdateKonsultasiStatus::class,
+    ];
     protected function commands(): void
     {
         $this->load(__DIR__ . '/Commands');
@@ -30,6 +34,7 @@ class Kernel extends ConsoleKernel
     $schedule->command('konsultasi:check-pending')->everyMinute();
     $schedule->command('konsultasi:check-expired')->everyMinute();
     $schedule->command('konsultasi:check-response')->everyMinute();
+    $schedule->command('konsultasi:update-status')->everyMinute(); 
 }
 
 }

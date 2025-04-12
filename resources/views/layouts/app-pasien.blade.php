@@ -1,3 +1,7 @@
+@php
+    \Carbon\Carbon::setLocale('id');
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -114,7 +118,8 @@
                                     </div>
                                 </div>
                                 <div class="menu-item">
-                                    <a class="menu-link {{ request()->routeIs('rekammedis') ? 'active' : '' }}" href="{{ route('rekammedis') }}">
+                                    <a class="menu-link {{ request()->routeIs('rekammedis') ? 'active' : '' }}"
+                                        href="{{ route('rekammedis') }}">
                                         <span class="menu-icon">
                                             <i class="bi bi-journal-medical fs-2"></i>
                                         </span>

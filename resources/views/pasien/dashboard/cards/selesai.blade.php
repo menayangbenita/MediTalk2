@@ -9,7 +9,10 @@
         <i class="ki-solid ki-messages text-white fs-3qx ms-n1"></i>
         <div class="text-white fw-bold fs-2 mb-2 mt-5">Sesi Konsultasi Berakhir
         </div>
-        <div class="fw-semibold text-white">dr. Kaeya Alberich, Sp.A (K)</div>
-        <div class="fw-semibold text-white">7 Feb 2025 09.15 - 10.15</div>
+        <div class="fw-semibold text-white">dr. {{ $konsultasi->dokter->nama }}</div>
+        <div class="fw-semibold text-white">
+            {{ \Carbon\Carbon::parse($konsultasi->waktu_mulai)->format('H.i') }} -
+            {{ \Carbon\Carbon::parse($konsultasi->waktu_selesai)->format('H.i') }}
+        </div>
     </div>
 </div>

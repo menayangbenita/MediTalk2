@@ -110,13 +110,29 @@
                         console.log(response);
                         $('#messageInput').val('');
 
-                        $('#kt_chat_messenger_body').append(`
-                            <div class="message outgoing">
-                                <div class="bubble">
+                        const currentTime = new Date().toLocaleTimeString([], {
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+
+                    $('#kt_chat_messenger_body .scroll-y').append(`
+                        <div class="d-flex justify-content-end mb-10">
+                            <div class="d-flex flex-column align-items-end">
+                                <div class="d-flex align-items-center mb-2">
+                                    <div class="me-3">
+                                        <span class="text-muted fs-7 mb-1">${currentTime}</span>
+                                        <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary ms-1">Pasien A</a>
+                                    </div>
+                                    <div class="symbol symbol-35px symbol-circle">
+                                        <img alt="Pic" src="{{ asset('images/user.jpg') }}" />
+                                    </div>
+                                </div>
+                                <div class="p-5 rounded bg-light-primary text-dark fw-semibold mw-lg-400px text-end" data-kt-element="message-text">
                                     ${response.data.pesan}
                                 </div>
                             </div>
-                        `);
+                        </div>
+                    `);
 
                         $('#kt_chat_messenger_body').scrollTop($('#kt_chat_messenger_body')[0]
                             .scrollHeight);

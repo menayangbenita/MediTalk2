@@ -91,7 +91,7 @@ class MidtransController extends Controller
                 'dokter_id' => $transaksi->dokter_id,
                 'pasien_id' => $transaksi->user_id,
                 'pembayaran_id' => $transaksi->order_id,
-                'status' => 'ongoing',
+                'status' => 'berlangsung',
                 'waktu_mulai' => now(),
                 'waktu_selesai' => now()->addMinutes(60),
             ]);
@@ -140,7 +140,7 @@ class MidtransController extends Controller
             'pasien_id' => Auth::user()->id,
             'dokter_id' => $request->dokter_id,
             'pembayaran_id' => $transaction->id,
-            'status' => 'pending',
+            'status' => 'menunggu',
         ]);
 
         try {
@@ -182,13 +182,13 @@ class MidtransController extends Controller
                     'dokter_id' => $transaksi->dokter_id,
                     'pasien_id' => $transaksi->user_id,
                     'pembayaran_id' => $transaksi->id,
-                    'status' => 'ongoing',
+                    'status' => 'berlangsung',
                     'waktu_mulai' => now(),
                     'waktu_selesai' => now()->addMinutes(60),
                 ]);
             } else {
                 $existingKonsultasi->update([
-                    'status' => 'ongoing',
+                    'status' => 'berlangsung',
                     'waktu_mulai' => now(),
                     'waktu_selesai' => now()->addMinutes(60),
                 ]);

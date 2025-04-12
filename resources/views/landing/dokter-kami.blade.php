@@ -34,9 +34,9 @@
     <link href="{{ asset('landing/css/main.css') }}" rel="stylesheet">
 
     <!-- Select2 -->
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 
     <!-- =======================================================
@@ -95,9 +95,42 @@
                     <div class="col-md-3">
                         <select id="filterSpesialis" class="form-select select2">
                             <option value="">Semua Spesialis</option>
-                            <option value="Spesialis Anak">Spesialis Anak</option>
-                            <option value="Spesialis Jantung">Spesialis Jantung</option>
-                            <option value="Spesialis Kulit">Spesialis Kulit</option>
+                            <option value="Anak">Spesialis Anak (Sp.A)</option>
+                            <option value="Bedah">Spesialis Bedah (Sp.B)</option>
+                            <option value="Bedah Anak">Spesialis Bedah Anak (Sp.BA)</option>
+                            <option value="Bedah Plastik">Spesialis Bedah Plastik, Rekonstruksi & Estetik
+                                (Sp.BP-RE)</option>
+                            <option value="Bedah Orthopedi">Spesialis Bedah Orthopedi & Traumatologi (Sp.OT)
+                            </option>
+                            <option value="Bedah Saraf">Spesialis Bedah Saraf (Sp.BS)</option>
+                            <option value="Bedah Urologi">Spesialis Urologi (Sp.U)</option>
+                            <option value="Bedah Kardiovaskular">Spesialis Bedah Toraks, Kardiak & Vaskular
+                                (Sp.BTKV)</option>
+                            <option value="Jantung">Spesialis Jantung & Pembuluh Darah (Sp.JP)</option>
+                            <option value="THT">Spesialis Telinga, Hidung, Tenggorokan, Bedah Kepala &
+                                Leher (Sp.THT-KL)</option>
+                            <option value="Penyakit Dalam">Spesialis Penyakit Dalam (Sp.PD)</option>
+                            <option value="Paru">Spesialis Pulmonologi & Kedokteran Respirasi (Sp.P)
+                            </option>
+                            <option value="Saraf">Spesialis Neurologi (Sp.N)</option>
+                            <option value="Mata">Spesialis Mata (Sp.M)</option>
+                            <option value="Obgyn">Spesialis Obstetri & Ginekologi (Sp.OG)</option>
+                            <option value="Kulit dan Kelamin">Spesialis Kulit & Kelamin (Sp.KK)</option>
+                            <option value="Anestesi">Spesialis Anestesiologi & Terapi Intensif (Sp.An)
+                            </option>
+                            <option value="Kedokteran Jiwa">Spesialis Kedokteran Jiwa / Psikiater (Sp.KJ)
+                            </option>
+                            <option value="Gizi Klinik">Spesialis Gizi Klinik (Sp.GK)</option>
+                            <option value="Patologi Klinik">Spesialis Patologi Klinik (Sp.PK)</option>
+                            <option value="Patologi Anatomi">Spesialis Patologi Anatomi (Sp.PA)</option>
+                            <option value="Radiologi">Spesialis Radiologi (Sp.Rad)</option>
+                            <option value="Forensik">Spesialis Forensik & Medikolegal (Sp.F)</option>
+                            <option value="Rehabilitasi Medis">Spesialis Kedokteran Fisik & Rehabilitasi
+                                (Sp.KFR)</option>
+                            <option value="Kedokteran Olahraga">Spesialis Kedokteran Olahraga (Sp.KO)
+                            </option>
+                            <option value="Gigi">Spesialis Kedokteran Gigi (Sp.KG)</option>
+                            <option value="Gigi Anak">Spesialis Kedokteran Gigi Anak (Sp.KGA)</option>
                         </select>
                     </div>
                     <div class="col-md-3">
@@ -112,18 +145,19 @@
 
             <div class="container">
                 <div id="dokterList" class="row gy-4">
-                    @foreach ($dokters as $dokter )
-                    <div class="col-12 col-sm-6 col-md-3 d-flex align-items-stretch justify-content-center">
-                      <div class="dokter-member">
-                        <div class="dokter-img">
-                          <img src="{{ asset('storage/' . $dokter->foto) }}" class="img-fluid" alt="">
+                    @foreach ($dokters as $dokter)
+                        <div class="col-12 col-sm-6 col-md-3 d-flex align-items-stretch justify-content-center">
+                            <div class="dokter-member">
+                                <div class="dokter-img">
+                                    <img src="{{ asset('storage/' . $dokter->foto) }}" class="img-fluid"
+                                        alt="">
+                                </div>
+                                <div class="dokter-info">
+                                    <h4>{{ $dokter->nama }}</h4>
+                                    <span>Spesialis {{ $dokter->spesialis }}</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="dokter-info">
-                          <h4>{{ $dokter->nama }}</h4>
-                          <span>Spesialis {{ $dokter->spesialis }}</span>
-                        </div>
-                      </div>
-                    </div>
                     @endforeach
                 </div>
                 <div class="mt-5 d-flex justify-content-center">
@@ -166,6 +200,7 @@
 
     <!-- Preloader -->
     <div id="preloader"></div>
+    <script src="{{ asset('landing/js/main.js') }}"></script>
 
     <!-- Vendor JS Files -->
     <script src="{{ asset('landing/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -186,8 +221,9 @@
         });
     @endphp
     <script>
-        const allDoctors = @json($dokters);
+        const allDoctors = @json($doctorsJson);
     </script>
+
     <script>
         const dokterList = document.getElementById('dokterList');
         const searchInput = document.getElementById('searchInput');
@@ -210,92 +246,72 @@
             </div>
             <div class="dokter-info">
               <h4>${doctor.name}</h4>
-              <span>${doctor.spesialis}</span>
+              <span>Spesialis ${doctor.spesialis}</span>
             </div>
           </div>
         </div>
       `).join('');
         }
 
-        function renderPagination(totalDoctors) {
-            const totalPages = Math.ceil(totalDoctors / doctorsPerPage);
-            pagination.innerHTML = '';
+        function renderPagination(filteredDoctors) {
+        const totalPages = Math.ceil(filteredDoctors.length / doctorsPerPage);
+        pagination.innerHTML = '';
 
-            const maxVisiblePages = 5;
-            const pageNumbers = [];
+        for (let i = 1; i <= totalPages; i++) {
+            const li = document.createElement('li');
+            li.classList.add('page-item');
+            if (i === currentPage) li.classList.add('active');
 
-            if (totalPages <= maxVisiblePages) {
-                for (let i = 1; i <= totalPages; i++) {
-                    pageNumbers.push(i);
-                }
-            } else {
-                pageNumbers.push(1);
+            const a = document.createElement('a');
+            a.classList.add('page-link');
+            a.href = '#';
+            a.textContent = i;
 
-                if (currentPage > 3) {
-                    pageNumbers.push('...');
-                }
-
-                const start = Math.max(2, currentPage - 1);
-                const end = Math.min(totalPages - 1, currentPage + 1);
-
-                for (let i = start; i <= end; i++) {
-                    pageNumbers.push(i);
-                }
-
-                if (currentPage < totalPages - 2) {
-                    pageNumbers.push('...');
-                }
-
-                pageNumbers.push(totalPages);
-            }
-
-            pageNumbers.forEach(p => {
-                if (p === '...') {
-                    pagination.innerHTML +=
-                        `<li class="page-item disabled"><span class="page-link">...</span></li>`;
-                } else {
-                    pagination.innerHTML += `
-        <li class="page-item ${p === currentPage ? 'active' : ''}">
-          <a class="page-link" href="#" onclick="goToPage(${p})">${p}</a>
-        </li>
-      `;
-                }
+            a.addEventListener('click', function (e) {
+                e.preventDefault();
+                currentPage = i;
+                updateDoctorsList();
             });
+
+            li.appendChild(a);
+            pagination.appendChild(li);
         }
+    }
 
+    function updateDoctorsList() {
+        const searchQuery = searchInput.value.toLowerCase();
+        const selectedSpecialist = filterSpesialis.value;
 
-        function filterAndRender() {
-            const searchTerm = searchInput.value.toLowerCase();
-            const selectedSpesialis = $('#filterSpesialis').val();
-
-            const filtered = allDoctors.filter(doc =>
-                (doc.name.toLowerCase().includes(searchTerm) || doc.spesialis.toLowerCase().includes(searchTerm)) &&
-                (selectedSpesialis === '' || doc.spesialis === selectedSpesialis)
-            );
-
-            renderDoctors(filtered);
-            renderPagination(filtered.length);
-        }
-
-        function goToPage(page) {
-            currentPage = page;
-            filterAndRender();
-        }
-
-        searchInput.addEventListener('input', () => {
-            currentPage = 1;
-            filterAndRender();
-        });
-        filterSpesialis.addEventListener('change', () => {
-            currentPage = 1;
-            filterAndRender();
+        const filteredDoctors = allDoctors.filter(doctor => {
+            const matchesName = doctor.name.toLowerCase().includes(searchQuery);
+            const matchesSpecialist = selectedSpecialist === "" || doctor.spesialis === selectedSpecialist;
+            return matchesName && matchesSpecialist;
         });
 
-        filterAndRender();
-    </script>
+        renderDoctors(filteredDoctors);
+        renderPagination(filteredDoctors);
+    }
+
+    // Event listeners
+    searchInput.addEventListener('input', () => {
+        currentPage = 1;
+        updateDoctorsList();
+    });
+
+    filterSpesialis.addEventListener('change', () => {
+        currentPage = 1;
+        updateDoctorsList();
+    });
+
+    // Initial render
+    document.addEventListener('DOMContentLoaded', () => {
+        $('.select2').select2();
+        updateDoctorsList();
+    });
+</script>
+
 
     <!-- Main JS File -->
-    <script src="{{ asset('landing/js/main.js') }}"></script>
 
     <script>
         $(document).ready(function() {
@@ -303,10 +319,6 @@
                 placeholder: "Pilih spesialis...",
                 allowClear: true
             });
-        });
-        $('#filterSpesialis').on('change', function() {
-            currentPage = 1;
-            filterAndRender();
         });
     </script>
 
