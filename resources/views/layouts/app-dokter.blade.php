@@ -298,7 +298,7 @@
                 const status = isChecked ? 'aktif' : 'tidak';
     
                 $.ajax({
-                    url: 'http://localhost/MediTalkk/public/dokter/update-status',
+                    url: 'https://meditalk.catalogrpl.com/public/dokter/update-status',
                     type: 'POST',
                     data: {
                         _token: '{{ csrf_token() }}',
