@@ -11,7 +11,12 @@ class PengajuanPenarikan extends Model
 
     protected $table = 'pengajuan_penarikan';
 
-    protected $fillable = ['user_id', 'jumlah', 'status'];
+    protected $fillable = [
+        'dokter_id',
+        'jumlah',
+        'status',
+        'disetujui_pada',
+    ];
 
     public function user()
     {

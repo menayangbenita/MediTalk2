@@ -118,7 +118,7 @@
                                     </div>
                                 </div>
                                 <div class="menu-item">
-                                    <a class="menu-link" href="">
+                                    <a class="menu-link {{ request()->routeIs('dokter.rekam-medis') ? 'active' : '' }}" href="{{ route('dokter.rekam-medis') }}">
                                         <span class="menu-icon">
                                             <i class="bi bi-file-earmark-medical fs-2"></i>
                                         </span>
@@ -139,7 +139,7 @@
                                     </a>
                                 </div>
                                 <div class="menu-item">
-                                    <a class="menu-link" href="">
+                                    <a class="menu-link {{ request()->routeIs('dokter.penarikan.index') ? 'active' : '' }}" href="{{ route('dokter.penarikan.index') }}">
                                         <span class="menu-icon">
                                             <i class="bi bi-cash-stack fs-2"></i>
                                         </span>
@@ -175,7 +175,7 @@
                                 <div class="d-flex flex-column">
                                     <div class="fw-bold d-flex align-items-center fs-5">Selamat datang,
                                     </div>
-                                    <a href="./profil.html"
+                                    <a href="{{ route('dokter.profil.show') }}"
                                         class="fw-semibold text-muted text-hover-primary fs-7">{{ Auth::user()->name }}</a>
                                 </div>
                             </div>
@@ -195,7 +195,7 @@
                                 </div>
                                 <div class="separator my-2"></div>
                                 <div class="menu-item px-5">
-                                    <a href="/demo42/dist/account/overview.html" class="menu-link px-5">Profil
+                                    <a href="{{ route('dokter.profil.show') }}" class="menu-link px-5">Profil
                                         Saya</a>
                                 </div>
                                 <div class="separator my-2"></div>
@@ -282,7 +282,7 @@
     </script>
     <script src="{{ asset('js/custom/apps/ecommerce/catalog/products.js') }}"></script>
     <script src="{{ asset('js/scripts.bundle.js') }}"></script>
-    <script src="{{ asset('js/widgets.bundle.js') }}"></script>
+    {{-- <script src="{{ asset('js/widgets.bundle.js') }}"></script> --}}
     <script src="{{ asset('js/custom/apps/chat/chat.js') }}"></script>
     <script src="{{ asset('js/custom/widgets.js') }}"></script>
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>

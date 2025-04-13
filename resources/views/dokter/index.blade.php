@@ -31,7 +31,7 @@
                                         <span class="opacity-75">Hari ini</span>
                                         <span class="position-relative d-inline-block">
                                             <div class="link-white opacity-75-hover fw-bold d-block mb-1">
-                                                10/2/2025</div>
+                                                {{ $todayy->format('d/m/Y') }}</div>
                                         </span>
                                     </div>
                                 </h3>
@@ -53,7 +53,7 @@
                                                 </div>
                                                 <div class="m-0">
                                                     <span
-                                                        class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">4</span>
+                                                        class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">{{ $konsultasiAktif }}</span>
                                                     <span class="text-gray-500 fw-semibold fs-6">Konsultasi
                                                         Aktif</span>
                                                 </div>
@@ -71,7 +71,7 @@
                                                 </div>
                                                 <div class="m-0">
                                                     <span
-                                                        class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">21</span>
+                                                        class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">{{ $konsultasiSelesai }}</span>
                                                     <span class="text-gray-500 fw-semibold fs-6">Konsultasi
                                                         Selesai</span>
                                                 </div>
@@ -92,7 +92,7 @@
                                                 </div>
                                                 <div class="m-0" style="overflow: hidden;">
                                                     <span
-                                                        class="text-gray-700 fw-bolder d-block fs-1 lh-1 ls-n1 mb-1">Rp150.000</span>
+                                                        class="text-gray-700 fw-bolder d-block fs-1 lh-1 ls-n1 mb-1">Rp{{ $pendapatan }}</span>
                                                     <span class="text-gray-500 fw-semibold fs-6">Pendapatan
                                                         Masuk</span>
                                                 </div>
@@ -107,7 +107,7 @@
                                                 </div>
                                                 <div class="m-0">
                                                     <span
-                                                        class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">95%</span>
+                                                        class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">{{ $rating }}%</span>
                                                     <span class="text-gray-500 fw-semibold fs-6">Rating
                                                         Saya</span>
                                                 </div>
@@ -130,85 +130,35 @@
                             </div>
                             <div class="card-body pt-0">
                                 <div class="m-0">
-                                    <div class="d-flex flex-stack">
-                                        <div class="symbol symbol-45px symbol-circle me-4">
-                                            <img src="/demo42/dist/assets/media/avatars/300-10.jpg" alt="" />
-                                        </div>
-                                        <div class="d-flex flex-stack flex-row-fluid d-grid gap-2">
-                                            <div class="me-5">
-                                                <a href="#"
-                                                    class="text-gray-800 fw-bold text-hover-primary fs-6">Jake</a>
-                                                <span class="text-gray-400 fw-semibold fs-7 d-block text-start ps-0">No. RM:
-                                                    123456</span>
+                                    @forelse ($berlangsungs as $berlangsung)
+                                        <div class="d-flex flex-stack">
+                                            <div class="symbol symbol-45px symbol-circle me-4">
+                                                <img src="{{ asset('images/user.jpg') }}" alt="" />
                                             </div>
-                                            <div class="d-flex align-items-center">
-                                                <div class="m-0">
-                                                    <span class="badge badge-light-warning fs-6">
-                                                        Proses</span>
+                                            <div class="d-flex flex-stack flex-row-fluid d-grid gap-2">
+                                                <div class="me-5">
+                                                    <a href="#"
+                                                        class="text-gray-800 fw-bold text-hover-primary fs-6">{{ $berlangsung->pasien->nama }}</a>
+                                                    <span class="text-gray-400 fw-semibold fs-7 d-block text-start ps-0">No.
+                                                        RM:
+                                                        {{ $riwayat->pasien->nrm }}</span>
+                                                </div>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="m-0">
+                                                        <span class="badge badge-light-warning fs-6">
+                                                            Proses</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="separator separator-dashed my-3"></div>
-                                    <div class="d-flex flex-stack">
-                                        <div class="symbol symbol-45px symbol-circle me-4">
-                                            <img src="/demo42/dist/assets/media/avatars/300-10.jpg" alt="" />
+                                        @if (!$loop->last)
+                                            <div class="separator separator-dashed my-3"></div>
+                                        @endif
+                                    @empty
+                                        <div class="text-center text-muted fs-6 mt-4">
+                                            Tidak ada konsultasi yang sedang berlangsung.
                                         </div>
-                                        <div class="d-flex flex-stack flex-row-fluid d-grid gap-2">
-                                            <div class="me-5">
-                                                <a href="#"
-                                                    class="text-gray-800 fw-bold text-hover-primary fs-6">Jake</a>
-                                                <span class="text-gray-400 fw-semibold fs-7 d-block text-start ps-0">No.
-                                                    RM: 123456</span>
-                                            </div>
-                                            <div class="d-flex align-items-center">
-                                                <div class="m-0">
-                                                    <span class="badge badge-light-warning fs-6">
-                                                        Proses</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="separator separator-dashed my-3"></div>
-                                    <div class="d-flex flex-stack">
-                                        <div class="symbol symbol-45px symbol-circle me-4">
-                                            <img src="/demo42/dist/assets/media/avatars/300-10.jpg" alt="" />
-                                        </div>
-                                        <div class="d-flex flex-stack flex-row-fluid d-grid gap-2">
-                                            <div class="me-5">
-                                                <a href="#"
-                                                    class="text-gray-800 fw-bold text-hover-primary fs-6">Jake</a>
-                                                <span class="text-gray-400 fw-semibold fs-7 d-block text-start ps-0">No.
-                                                    RM: 123456</span>
-                                            </div>
-                                            <div class="d-flex align-items-center">
-                                                <div class="m-0">
-                                                    <span class="badge badge-light-warning fs-6">
-                                                        Proses</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="separator separator-dashed my-3"></div>
-                                    <div class="d-flex flex-stack">
-                                        <div class="symbol symbol-45px symbol-circle me-4">
-                                            <img src="/demo42/dist/assets/media/avatars/300-10.jpg" alt="" />
-                                        </div>
-                                        <div class="d-flex flex-stack flex-row-fluid d-grid gap-2">
-                                            <div class="me-5">
-                                                <a href="#"
-                                                    class="text-gray-800 fw-bold text-hover-primary fs-6">Jake</a>
-                                                <span class="text-gray-400 fw-semibold fs-7 d-block text-start ps-0">No.
-                                                    RM: 123456</span>
-                                            </div>
-                                            <div class="d-flex align-items-center">
-                                                <div class="m-0">
-                                                    <span class="badge badge-light-warning fs-6">
-                                                        Proses</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @endforelse
                                 </div>
                             </div>
                         </div>
@@ -225,85 +175,35 @@
                             </div>
                             <div class="card-body pt-0">
                                 <div class="m-0">
-                                    <div class="d-flex flex-stack">
-                                        <div class="symbol symbol-45px symbol-circle me-4">
-                                            <img src="/demo42/dist/assets/media/avatars/300-10.jpg" alt="" />
-                                        </div>
-                                        <div class="d-flex flex-stack flex-row-fluid d-grid gap-2">
-                                            <div class="me-5">
-                                                <a href="#"
-                                                    class="text-gray-800 fw-bold text-hover-primary fs-6">Jake</a>
-                                                <span class="text-gray-400 fw-semibold fs-7 d-block text-start ps-0">No.
-                                                    RM: 123456</span>
+                                    @forelse ($riwayats as $riwayat)
+                                        <div class="d-flex flex-stack">
+                                            <div class="symbol symbol-45px symbol-circle me-4">
+                                                <img src="{{ asset('images/user.jpg') }}" alt="" />
                                             </div>
-                                            <div class="d-flex align-items-center">
-                                                <div class="m-0">
-                                                    <span class="badge badge-light-success fs-6">
-                                                        Selesai</span>
+                                            <div class="d-flex flex-stack flex-row-fluid d-grid gap-2">
+                                                <div class="me-5">
+                                                    <a href="#"
+                                                        class="text-gray-800 fw-bold text-hover-primary fs-6">{{ $riwayat->pasien->nama }}</a>
+                                                    <span
+                                                        class="text-gray-400 fw-semibold fs-7 d-block text-start ps-0">No.
+                                                        RM: {{ $riwayat->pasien->nrm }}</span>
+                                                </div>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="m-0">
+                                                        <span class="badge badge-light-success fs-6">
+                                                            Selesai</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="separator separator-dashed my-3"></div>
-                                    <div class="d-flex flex-stack">
-                                        <div class="symbol symbol-45px symbol-circle me-4">
-                                            <img src="/demo42/dist/assets/media/avatars/300-10.jpg" alt="" />
+                                        @if (!$loop->last)
+                                            <div class="separator separator-dashed my-3"></div>
+                                        @endif
+                                    @empty
+                                        <div class="text-center text-muted fs-6 mt-4">
+                                            Anda belum melakukan sesi konsultasi.
                                         </div>
-                                        <div class="d-flex flex-stack flex-row-fluid d-grid gap-2">
-                                            <div class="me-5">
-                                                <a href="#"
-                                                    class="text-gray-800 fw-bold text-hover-primary fs-6">Jake</a>
-                                                <span class="text-gray-400 fw-semibold fs-7 d-block text-start ps-0">No.
-                                                    RM: 123456</span>
-                                            </div>
-                                            <div class="d-flex align-items-center">
-                                                <div class="m-0">
-                                                    <span class="badge badge-light-success fs-6">
-                                                        Selesai</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="separator separator-dashed my-3"></div>
-                                    <div class="d-flex flex-stack">
-                                        <div class="symbol symbol-45px symbol-circle me-4">
-                                            <img src="/demo42/dist/assets/media/avatars/300-10.jpg" alt="" />
-                                        </div>
-                                        <div class="d-flex flex-stack flex-row-fluid d-grid gap-2">
-                                            <div class="me-5">
-                                                <a href="#"
-                                                    class="text-gray-800 fw-bold text-hover-primary fs-6">Jake</a>
-                                                <span class="text-gray-400 fw-semibold fs-7 d-block text-start ps-0">No.
-                                                    RM: 123456</span>
-                                            </div>
-                                            <div class="d-flex align-items-center">
-                                                <div class="m-0">
-                                                    <span class="badge badge-light-success fs-6">
-                                                        Selesai</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="separator separator-dashed my-3"></div>
-                                    <div class="d-flex flex-stack">
-                                        <div class="symbol symbol-45px symbol-circle me-4">
-                                            <img src="/demo42/dist/assets/media/avatars/300-10.jpg" alt="" />
-                                        </div>
-                                        <div class="d-flex flex-stack flex-row-fluid d-grid gap-2">
-                                            <div class="me-5">
-                                                <a href="#"
-                                                    class="text-gray-800 fw-bold text-hover-primary fs-6">Jake</a>
-                                                <span class="text-gray-400 fw-semibold fs-7 d-block text-start ps-0">No.
-                                                    RM: 123456</span>
-                                            </div>
-                                            <div class="d-flex align-items-center">
-                                                <div class="m-0">
-                                                    <span class="badge badge-light-success fs-6">
-                                                        Selesai</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @endforelse
                                 </div>
                             </div>
                         </div>

@@ -28,12 +28,6 @@ class Register extends Controller
             'role' => 'pasien',
         ]);
 
-        $user->pasien()->create([
-            'nrm' => $request->nrm,
-            // tambahkan data lain kalo ada
-        ]);
-
-        // Login user langsung (optional)
         Auth::login($user);
 
         return redirect()->route('dashboard');

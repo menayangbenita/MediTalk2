@@ -69,15 +69,15 @@
                                         value="{{ Auth::user()->id }}">
                                     <textarea class="form-control mb-3" rows="1" data-kt-element="input" placeholder="Ketik pesan..."
                                         name="pesan" id="messageInput"></textarea>
-                                    <div class="d-flex flex-stack">
-                                        <div class="d-flex align-items-center me-2">
+                                    <div class="d-flex justify-content-end">
+                                        {{-- <div class="d-flex align-items-center me-2">
                                             <input type="file" style="display:none;" id="inputFile" />
                                             <a href="javascript:document.getElementById('inputFile').click(); ">
                                                 <div class="btn btn-sm btn-icon btn-active-light-primary me-1">
                                                     <i class="ki-outline ki-paper-clip fs-3"></i>
                                                 </div>
                                             </a>
-                                        </div>
+                                        </div> --}}
                                         <button class="btn btn-primary px-4" type="submit" data-kt-element="send">Kirim
                                             <i class="bi bi-send fs-5 ms-2"></i>
                                         </button>
@@ -107,7 +107,6 @@
                         _token: $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(response) {
-                        console.log(response);
                         $('#messageInput').val('');
 
                         const currentTime = new Date().toLocaleTimeString([], {
@@ -216,47 +215,7 @@
         `;
     }
 
-    // Jalankan saat halaman ready
     setInterval(loadMessages, 2000);
     loadMessages();
 </script>
-
-
-    {{-- <script>
-        fetch('/api/get-messages')
-            .then(response => response.json())
-            .then(data => {
-                console.log(data); // Pastikan data diterima dengan benar
-                updateChatUI(data.messages); // Pastikan ada fungsi untuk update tampilan chat
-            })
-            .catch(error => console.error('Error fetching messages:', error));
-    </script> --}}
-
-    {{-- <script>
-        $("#sendMessageForm").submit(function(e) {
-            e.preventDefault();
-
-            let messageInput = $("#messageInput").val();
-            let incoming_id = $("#incoming_id").val();
-
-            if (messageInput.trim() === "") return;
-
-            $.ajax({
-                url: "/send-message",
-                type: "POST",
-                data: {
-                    _token: $("meta[name='csrf-token']").attr("content"),
-                    message: messageInput,
-                    incoming_id: incoming_id,
-                },
-                success: function() {
-                    $("#messageInput").val(""); // Kosongkan input setelah kirim
-                    loadMessages(); // Refresh chat
-                },
-                error: function(error) {
-                    console.error("Error sending message:", error);
-                },
-            });
-        });
-    </script> --}}
 @endsection

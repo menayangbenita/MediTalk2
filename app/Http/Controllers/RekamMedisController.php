@@ -6,7 +6,9 @@ use App\Models\Dokter;
 use App\Models\RekamMedis;
 use App\Models\Pasien;
 use App\Models\User;
+use App\Models\SesiKonsultasi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RekamMedisController extends Controller
 {
@@ -18,6 +20,19 @@ class RekamMedisController extends Controller
         return view('laborat.rekam-medis', compact('rekamMedis', 'pasiens', 'dokters'));
     }
 
+    public function rekamMedisPasien()
+    {
+        $user = Auth::user();
+        $dokter = Auth::User()->dokter;
+        $dokter_id = $user->dokter->id;
+
+        $pasien_id = SesiKonsultasi::where('dokter_id', $dokter_id)
+            ->pluck('pasien_id');
+
+        $rekamMedis = RekamMedis::whereIn('pasien_id', $pasien_id)->orderBy('tanggal', 'desc')->get();
+
+        return view('dokter.rekam-medis', compact('dokter', 'rekamMedis'));
+    }
 
     public function store(Request $request)
     {
