@@ -33,14 +33,6 @@
                             <!--end::Search-->
                         </div>
                         <!--end::Card title-->
-                        <!--begin::Card toolbar-->
-                        <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
-                            <button type="button" onclick="resetForm()" class="btn btn-primary" id="btnTambah"
-                                data-bs-toggle="modal" data-bs-target="#kt_tambah_rekammedis">
-                                Tambah Rekam Medis
-                            </button>
-                        </div>
-                        <!--end::Card toolbar-->
                     </div>
                     <!--end::Card header-->
                     <div class="card-body pt-0">
