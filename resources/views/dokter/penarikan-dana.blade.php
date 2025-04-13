@@ -115,7 +115,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="fw-bold text-gray-600">
-                                        @forelse ($riwayat as $trx)
+                                        @foreach ($riwayat as $trx)
                                             <tr>
                                                 <td class="">{{ $trx->no_rek }}</td>
                                                 <td class="text-end text-dark text-hover-primary">
@@ -145,7 +145,7 @@
                                                     </td>
                                                 @endif
                                             </tr>
-                                        @endforelse
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
