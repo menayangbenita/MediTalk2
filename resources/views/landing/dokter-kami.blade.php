@@ -322,7 +322,7 @@
         });
         $('#filterSpesialis').on('change', function () {
         currentPage = 1;
-        filterAndRender();
+        updateDoctorsList();
         });
     </script>
 
