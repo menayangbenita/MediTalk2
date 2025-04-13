@@ -145,10 +145,6 @@
                                                     </td>
                                                 @endif
                                             </tr>
-                                        @empty
-                                            <div class="text-center text-muted fs-6 mt-4">
-                                                Anda belum melakukan sesi konsultasi.
-                                            </div>
                                         @endforelse
                                     </tbody>
                                 </table>
