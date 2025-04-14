@@ -95,16 +95,20 @@
                             <!--begin::Input group-->
                             <div class="fv-row mb-7">
                                 <input class="form-control form-control-lg form-control-solid" type="text"
-                                    placeholder="Masukkan nama Anda" name="nama" autocomplete="off" required
+                                    placeholder="Masukkan nama Anda" name="name" autocomplete="off" required
                                     data-kt-translate="sign-up-input-nama" />
-                                    @error('nama') <div>{{ $message }}</div> @enderror
+                                @error('nama')
+                                    <div>{{ $message }}</div>
+                                @enderror
                             </div>
                             <!--end::Input group-->
                             <div class="fv-row mb-7">
                                 <input class="form-control form-control-lg form-control-solid" type="text"
                                     placeholder="Masukkan nomor rekam medis Anda" name="nrm" autocomplete="off"
                                     required data-kt-translate="sign-up-input-rekam-medis" />
-                                    @error('nrm') <div>{{ $message }}</div> @enderror
+                                @error('nrm')
+                                    <div>{{ $message }}</div>
+                                @enderror
                             </div>
                             <!--end::Input group-->
                             <!--begin::Input group-->
@@ -112,7 +116,9 @@
                                 <input class="form-control form-control-lg form-control-solid" type="email"
                                     placeholder="Masukkan email Anda" name="email" autocomplete="off" required
                                     data-kt-translate="sign-up-input-email" />
-                                    @error('email') <div>{{ $message }}</div> @enderror
+                                @error('email')
+                                    <div>{{ $message }}</div>
+                                @enderror
                             </div>
                             <!--end::Input group-->
                             <!--begin::Input group-->
@@ -130,7 +136,9 @@
                                             <i class="ki-outline ki-eye-slash fs-2"></i>
                                             <i class="ki-outline ki-eye fs-2 d-none"></i>
                                         </span>
-                                        @error('password') <div>{{ $message }}</div> @enderror
+                                        @error('password')
+                                            <div>{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <!--end::Input wrapper-->
                                     <!--begin::Meter-->

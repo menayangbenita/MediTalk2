@@ -86,7 +86,7 @@
                                 </h3>
                             </div>
                             <div class="card-body pt-3">
-                                @foreach ($rekammedispasien as $rekam)
+                                @forelse ($rekammedispasien as $rekam)
                                     <div class="d-flex align-items-sm-center mb-7">
                                         <i class="bi bi-file-earmark-medical fs-3x me-4"></i>
                                         <div class="d-flex flex-row-fluid align-items-center flex-wrap my-lg-0 me-2">
@@ -116,7 +116,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                @endforeach
+                                @empty
+                                    <div class="text-center text-muted fs-6">
+                                        Anda belum memiliki riwayat rekam medis.
+                                    </div>
+                                @endforelse
                             </div>
                         </div>
                     </div>

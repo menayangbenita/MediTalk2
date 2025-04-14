@@ -29,4 +29,9 @@ class Dokter extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function konsultasi()
+    {
+        return $this->hasMany(SesiKonsultasi::class, 'dokter_id');
+    }
 }

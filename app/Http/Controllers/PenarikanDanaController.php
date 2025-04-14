@@ -9,20 +9,23 @@ use Illuminate\Support\Facades\Auth;
 
 class PenarikanDanaController extends Controller
 {
-    // public function store(Request $request)
-    // {
-    //     $request->validate([
-    //         'jumlah' => 'required|numeric|min:10000',
-    //     ]);
+    public function store(Request $request)
+    {
+        $user = Auth::user();
+        $dokter_id = $user->dokter->id;
 
-    //     PengajuanPenarikan::create([
-    //         'user_id' => Auth::id(),
-    //         'jumlah' => $request->jumlah,
-    //         'status' => 'pending',
-    //     ]);
+        $request->validate([
+            'jumlah' => 'required|numeric|min:10000',
+        ]);
 
-    //     return back()->with('success', 'Pengajuan penarikan dana berhasil dikirim.');
-    // }
+        PengajuanPenarikan::create([
+            'dokter_id' => $dokter_id,
+            'jumlah' => $request->jumlah,
+            'status' => 'pending',
+        ]);
+
+        return back()->with('success', 'Pengajuan penarikan dana berhasil dikirim.');
+    }
 
     public function index()
     {

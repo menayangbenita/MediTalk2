@@ -261,7 +261,7 @@
                                         <span class="required">Spesialis</span>
                                     </label>
                                     <select class="form-select form-select-solid fw-bold" data-kt-select2="true"
-                                        data-placeholder="Select option" data-allow-clear="true" name="spesialis"
+                                        data-placeholder="Pilih spesialis" data-allow-clear="true" name="spesialis"
                                         id="spesialis" data-dropdown-parent="#kt_tambah_dokter" required>
                                         <option value=""></option>
                                         <option value="Anak">Spesialis Anak (Sp.A)</option>
