@@ -200,8 +200,7 @@
 
     <!-- Preloader -->
     <div id="preloader"></div>
-    <script src="{{ asset('landing/js/main.js') }}"></script>
-
+    
     <!-- Vendor JS Files -->
     <script src="{{ asset('landing/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('landing/vendor/php-email-form/validate.js') }}"></script>
@@ -210,7 +209,7 @@
     <script src="{{ asset('landing/vendor/swiper/swiper-bundle.min.js') }}"></script>
     <script src="{{ asset('landing/vendor/imagesloaded/imagesloaded.pkgd.min.js') }}"></script>
     <script src="{{ asset('landing/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
-
+    
     @php
         $doctorsJson = $dokters->map(function ($dokter) {
             return [
@@ -310,8 +309,8 @@
     });
 </script>
 
-
     <!-- Main JS File -->
+    <script src="{{ asset('landing/js/main.js') }}"></script>
 
     <script>
         $(document).ready(function() {
