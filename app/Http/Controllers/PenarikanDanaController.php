@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PengajuanPenarikan;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
-use App\Models\PengajuanPenarikan;
 
 class PenarikanDanaController extends Controller
 {
@@ -18,13 +18,13 @@ class PenarikanDanaController extends Controller
             'jumlah' => 'required|numeric|min:10000',
         ]);
 
-        $data = PengajuanPenarikan::create([
+        PengajuanPenarikan::create([
             'dokter_id' => $dokter_id,
             'jumlah' => $request->jumlah,
             'status' => 'pending',
         ]);
 
-        return view('dokter.penarikan-dana')->with('success', 'Pengajuan penarikan dana berhasil dikirim.');
+        return back()->with('success', 'Pengajuan penarikan dana berhasil dikirim.');
     }
 
     public function index()
