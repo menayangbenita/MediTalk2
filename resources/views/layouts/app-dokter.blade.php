@@ -131,7 +131,7 @@
                                     </div>
                                 </div>
                                 <div class="menu-item">
-                                    <a class="menu-link" href="">
+                                    <a class="menu-link {{ request()->routeIs('dokter.chat') ? 'active' : '' }}" href="{{ route('dokter.chat') }}">
                                         <span class="menu-icon">
                                             <i class="ki-outline ki-messages fs-2"></i>
                                         </span>

@@ -29,7 +29,8 @@
                                     <i class="bi bi-wallet text-white fs-3qx ms-n1" style="margin-top: 5px;"></i>
                                     <div class="ms-4">
                                         <div class="text-white fw-medium fs-4">Saldo</div>
-                                        <div class="text-white fw-bolder fs-1">Rp{{ number_format($saldoAkhir, 0, ',', '.') }}</div>
+                                        <div class="text-white fw-bolder fs-1">
+                                            Rp{{ number_format($saldoAkhir, 0, ',', '.') }}</div>
                                     </div>
                                 </div>
                                 <button data-bs-toggle="modal" data-bs-target="#modal_tarik_dana"
@@ -47,7 +48,8 @@
                                     <i class="bi bi-cash-stack text-white fs-3qx ms-n1" style="margin-top: 5px;"></i>
                                     <div class="ms-4">
                                         <div class="text-white fw-medium fs-4">Dana Keluar</div>
-                                        <div class="text-white fw-bolder fs-1">Rp{{ number_format($totalKeluar, 0, ',', '.') }}</div>
+                                        <div class="text-white fw-bolder fs-1">
+                                            Rp{{ number_format($totalKeluar, 0, ',', '.') }}</div>
                                     </div>
                                 </div>
                             </div>
@@ -56,6 +58,9 @@
                 </div>
                 <div class="row">
                     <div class="col-xl-12">
+                        @if (session('success'))
+                            <div class="alert alert-success">{{ session('success') }}</div>
+                        @endif
                         <div class="card card-flush h-xl-100">
                             <div class="card-header pt-7">
                                 <h3 class="card-title align-items-start flex-column">
@@ -156,7 +161,8 @@
             <div class="modal fade" id="modal_tarik_dana" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered mw-650px">
                     <div class="modal-content">
-                        <form class="form" method="post" action="{{ route('dokter.penarikan.store') }}" id="modal_tarik_dana_form">
+                        <form class="form" method="post" action="{{ route('dokter.penarikan.store') }}"
+                            id="modal_tarik_dana_form">
                             @csrf
                             <div class="modal-header" id="modal_tarik_dana_header">
                                 <h2 class="fw-bold">Tarik Dana</h2>
@@ -173,8 +179,8 @@
                                     data-kt-scroll-wrappers="#modal_tarik_dana_scroll" data-kt-scroll-offset="300px">
                                     <div class="fv-row mb-7">
                                         <label class="required fs-6 fw-semibold mb-2">Masukkan Nominal</label>
-                                        <input type="number" class="form-control form-control-solid" placeholder="Cth: 100000"
-                                            name="jumlah" value="" />
+                                        <input type="number" class="form-control form-control-solid"
+                                            placeholder="Cth: 100000" name="jumlah" value="" />
                                     </div>
                                 </div>
                             </div>

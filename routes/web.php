@@ -13,6 +13,7 @@ use App\Http\Controllers\Superadmin\DokterController;
 use App\Http\Controllers\Superadmin\LaboratController;
 use App\Http\Controllers\Superadmin\PasienController;
 use App\Http\Controllers\Dokter\DashboardController;
+use App\Http\Controllers\Dokter\ChatDokterController;
 use App\Http\Controllers\Dokter\PenarikanController;
 use App\Http\Controllers\PenarikanDanaController;
 use App\Http\Controllers\MidtransController;
@@ -77,6 +78,9 @@ Route::middleware(['auth', 'role:dokter'])->group(function () {
     Route::post('/profil/{id}/update-nama-bank', [ProfilController::class, 'updateNamaBank'])->name('dokter.profil.updateNamaBank');
     Route::post('/profil/{id}/update-no-rekening', [ProfilController::class, 'updateNoRekening'])->name('dokter.profil.updateNoRekening');
     Route::post('/profil/update-password', [ProfilController::class, 'updatePassword'])->name('dokter.profil.updatePassword');
+    Route::get('/chat/dokter', [ChatDokterController::class, 'index'])->name(name: 'dokter.chat');
+    Route::get('/chat/dokter/messages/{sesiId}', [ChatController::class, 'getMessages'])->name('dokter.chat.messages');
+    Route::post('/chat/dokter/send', [ChatController::class, 'send'])->name('chat.send');
 });
 
 Route::get('/get-status', function () {
