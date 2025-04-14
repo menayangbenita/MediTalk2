@@ -19,7 +19,7 @@ class PenarikanDanaController extends Controller
         ]);
 
         PengajuanPenarikan::create([
-            'user_id' => $dokter_id,
+            'dokter_id' => $dokter_id,
             'jumlah' => $request->jumlah,
             'status' => 'pending',
         ]);
