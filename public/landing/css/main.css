@@ -935,6 +935,7 @@ section,
   border-radius: 5px;
   box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
   height: 100%;
+  width: 100%;
 }
 
 .dokterkami-section .dokter-member .dokter-img {
@@ -947,7 +948,7 @@ section,
 }
 
 .dokterkami-section .dokter-member .dokter-img img {
-  width: auto;
+  width: 100%;
   height: 100%;
   object-fit: cover;
 }
