@@ -24,8 +24,6 @@ class PenarikanDanaController extends Controller
             'status' => 'pending',
         ]);
 
-        dd($data);
-
         return view('dokter.penarikan-dana')->with('success', 'Pengajuan penarikan dana berhasil dikirim.');
     }
 
