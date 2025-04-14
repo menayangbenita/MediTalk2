@@ -79,6 +79,7 @@ Route::middleware(['auth', 'role:dokter'])->group(function () {
     Route::post('/profil/{id}/update-no-rekening', [ProfilController::class, 'updateNoRekening'])->name('dokter.profil.updateNoRekening');
     Route::post('/profil/update-password', [ProfilController::class, 'updatePassword'])->name('dokter.profil.updatePassword');
     Route::get('/chat/dokter', [ChatDokterController::class, 'index'])->name(name: 'dokter.chat');
+    Route::get('/chat/dokter/{id}', [ChatDokterController::class, 'show'])->name(name: 'dokter.chat.show');
     Route::get('/chat/dokter/messages/{sesiId}', [ChatController::class, 'getMessages'])->name('dokter.chat.messages');
     Route::post('/chat/dokter/send', [ChatController::class, 'send'])->name('chat.send');
 });
@@ -94,11 +95,11 @@ Route::get('/get-status', function () {
 Route::post('/dokter/update-status', [DokterController::class, 'updateStatus']);
 
 Route::middleware(['auth', 'role:laborat'])->name('laborat.')->group(function () {
-    Route::get('/dashboard', function () {
+    Route::get('/dashboard/laborat', function () {
         return view('laborat.index');
     })->name('dashboard');
 
-    Route::get('/rekam-medis', [RekamMedisController::class, 'index'])->name('rekammedis.index');
+    Route::get('/rekam-medis/laborat', [RekamMedisController::class, 'index'])->name('rekammedis.index');
     Route::post('/rekam-medis/store', [RekamMedisController::class, 'store'])->name('rekammedis.store');
     Route::get('/rekam-medis/{id}/edit', [RekamMedisController::class, 'edit'])->name('rekammedis.edit');
     Route::put('/rekam-medis/{id}', [RekamMedisController::class, 'update'])->name('rekammedis.update');

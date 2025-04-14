@@ -246,7 +246,7 @@
                 <form class="form" method="post" action="{{ route('dokter.profil.updatePassword') }}" id="modal_tarik_dana_form">
                     @csrf
                     <div class="modal-header" id="modal_tarik_dana_header">
-                        <h2 class="fw-bold">Ubah Password</h2>
+                        <h2 class="fw-bold">Ubah Kata Sandi</h2>
                         <div id="modal_tarik_dana_close" data-bs-dismiss="modal"
                             class="btn btn-icon btn-sm btn-active-icon-primary">
                             <i class="ki-outline ki-cross fs-1"></i>
@@ -254,7 +254,7 @@
                     </div>
                     <div class="modal-body py-10 px-lg-17">
                         <div class="col-lg-12 mb-4">
-                            <label for="current_password" class="form-label required">Password Lama</label>
+                            <label for="current_password" class="form-label required">Kata Sandi Lama</label>
                             <input type="password" class="form-control form-control-solid fw-bold" id="current_password"
                                 name="current_password" required>
                             @error('current_password')
@@ -264,7 +264,7 @@
 
                         <div class="row mb-4">
                             <div class="col-lg-6">
-                                <label for="new_password" class="form-label required">Password Baru</label>
+                                <label for="new_password" class="form-label required">Kata Sandi Baru</label>
                                 <input type="password" class="form-control form-control-solid fw-bold" id="new_password"
                                     name="new_password" required minlength="8">
                                 @error('new_password')
@@ -273,7 +273,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <label for="new_password_confirmation" class="form-label required">Konfirmasi
-                                    Password Baru</label>
+                                    Kata Sandi Baru</label>
                                 <input type="password" class="form-control form-control-solid fw-bold"
                                     id="new_password_confirmation" name="new_password_confirmation" required>
                                 @error('new_password_confirmation')
@@ -285,7 +285,7 @@
                             <button type="reset" id="modal_tarik_dana_cancel"
                                 class="btn btn-light me-3">Batalkan</button>
                             <button type="submit" id="modal_tarik_dana_submit" class="btn btn-primary">
-                                <span class="indicator-label">Ajukan Penarikan Dana</span>
+                                <span class="indicator-label">Ubah</span>
                                 <span class="indicator-progress">Please wait...
                                     <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                             </button>

@@ -141,7 +141,7 @@
                                                         class="text-gray-800 fw-bold text-hover-primary fs-6">{{ $berlangsung->pasien->nama }}</a>
                                                     <span class="text-gray-400 fw-semibold fs-7 d-block text-start ps-0">No.
                                                         RM:
-                                                        {{ $riwayat->pasien->nrm }}</span>
+                                                        {{ $berlangsung->pasien->nrm }}</span>
                                                 </div>
                                                 <div class="d-flex align-items-center">
                                                     <div class="m-0">

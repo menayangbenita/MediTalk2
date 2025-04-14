@@ -18,7 +18,7 @@
                                 <span class="bullet bg-gray-400 w-5px h-2px"></span>
                             </li>
                             <li class="breadcrumb-item text-muted">
-                                <a href="./konsultasi.html" class="text-muted text-hover-primary">Konsultasi</a>
+                                <a href="{{ route('dokter.chat') }}" class="text-muted text-hover-primary">Konsultasi</a>
                             </li>
                         </ul>
                     </div>
@@ -27,50 +27,7 @@
         </div>
         <div id="kt_app_content" class="app-content flex-column-fluid">
             <div id="kt_app_content_container" class="app-container container-xxl">
-                <div class="card mb-5 mb-xl-5 box-shadow">
-                    <div class="card-header ">
-                        <div class="card-title m-0">
-                            <h3 class="fw-bold m-0">Hasil Rekam Medis</h3>
-                        </div>
-                    </div>
-                    <div class="card-body p-9">
-                        <div class="table-responsive">
-                            <table id="tabel_rekam_medis"
-                                class="table table-striped table-row-bordered gy-5 gs-7 border rounded">
-                                <thead>
-                                    <tr class="fw-bold fs-6 text-gray-800 px-7">
-                                        <th>Tanggal</th>
-                                        <th>Dokter</th>
-                                        <th>Anamnesis</th>
-                                        <th>Tanda-tanda Vital</th>
-                                        <th>Diagnosis</th>
-                                        <th>Medikamentosa</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>29 Jan 2025</td>
-                                        <td>dr. Kaeya Alberich, Sp.A (K)</td>
-                                        <td>sakit tenggorokan</td>
-                                        <td>tonisilitis</td>
-                                        <td>2011/04/25</td>
-                                        <td>$320,800</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Garrett Winters</td>
-                                        <td>Accountant</td>
-                                        <td>Tokyo</td>
-                                        <td>63</td>
-                                        <td>2011/07/25</td>
-                                        <td>$170,750</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="d-flex flex-column flex-lg-row">
+                <div class="d-flex flex-column flex-lg-row mb-8">
                     <div class="flex-column flex-lg-row-auto w-100 w-lg-300px w-xl-400px mb-10 mb-lg-0 order-1 order-lg-0">
                         <div class="card card-flush">
                             <div class="card-header pt-7" id="kt_chat_contacts_header">
@@ -94,8 +51,8 @@
                                                     <img alt="Pic" src="{{ asset('images/user.jpg') }}" />
                                                 </div>
                                                 <div class="ms-5">
-                                                    <a href="#"
-                                                        class="fs-5 fw-bold text-gray-900 text-hover-primary mb-2">Ace</a>
+                                                    <a href="{{ route('dokter.chat.show', $konsultasi->id) }}"
+                                                        class="fs-5 fw-bold text-gray-900 text-hover-primary mb-2">{{ $konsultasi->pasien->nama }}</a>
                                                     <div class="fw-semibold text-muted last-chat">Lorem
                                                         ipsum dolor
                                                         sit amet Lorem ipsum dolor sit amet Lorem ipsum
@@ -127,9 +84,9 @@
                                     <div class="d-flex justify-content-center flex-column me-3">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <a href="#"
-                                                class="fs-4 fw-bold text-gray-900 text-hover-primary me-1 mb-2 lh-1">Jake</a>
+                                                class="fs-4 fw-bold text-gray-900 text-hover-primary me-1 mb-2 lh-1">{{ $konsultasi->pasien->nama }}</a>
                                             <span class="fs-7 fw-semibold text-muted mb-2 ms-2 lh-1">No. RM:
-                                                123456</span>
+                                                {{ $konsultasi->pasien->nrm }}</span>
                                         </div>
                                         <div class="mb-0 lh-1">
                                             <span class="badge badge-success badge-circle w-10px h-10px me-1"></span>
@@ -145,124 +102,83 @@
                                     data-kt-scroll-dependencies="#kt_header, #kt_app_header, #kt_app_toolbar, #kt_toolbar, #kt_footer, #kt_app_footer, #kt_chat_messenger_header, #kt_chat_messenger_footer"
                                     data-kt-scroll-wrappers="#kt_content, #kt_app_content, #kt_chat_messenger_body"
                                     data-kt-scroll-offset="5px">
-                                    <div class="d-flex justify-content-start mb-10">
-                                        <div class="d-flex flex-column align-items-start">
-                                            <div class="d-flex align-items-center mb-2">
-                                                <div class="symbol symbol-35px symbol-circle">
-                                                    <img alt="Pic"
-                                                        src="/demo42/dist/assets/media/avatars/300-10.jpg" />
-                                                </div>
-                                                <div class="ms-3">
-                                                    <a href="#"
-                                                        class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">Jake</a>
-                                                    <span class="text-muted fs-7 mb-1">04.19</span>
-                                                </div>
-                                            </div>
-                                            <div class="p-5 rounded bg-light-info text-dark fw-semibold mw-lg-400px text-start"
-                                                data-kt-element="message-text">Lorem ipsum dolor sit
-                                                amet, consectetur adipiscing elit. Ut et massa mi.
-                                                Aliquam in hendrerit urna.</div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex justify-content-end mb-10">
-                                        <div class="d-flex flex-column align-items-end">
-                                            <div class="d-flex align-items-center mb-2">
-                                                <div class="me-3">
-                                                    <span class="text-muted fs-7 mb-1">04.36</span>
-                                                    <a href="#"
-                                                        class="fs-5 fw-bold text-gray-900 text-hover-primary ms-1">Dokter
-                                                        A</a>
-                                                </div>
-                                                <div class="symbol symbol-35px symbol-circle">
-                                                    <img alt="Pic"
-                                                        src="/demo42/dist/assets/media/avatars/dokter.jpg" />
-                                                </div>
-                                            </div>
-                                            <div class="p-5 rounded bg-light-primary text-dark fw-semibold mw-lg-400px text-end"
-                                                data-kt-element="message-text">Lorem ipsum dolor sit
-                                                amet, consectetur adipiscing elit. Ut et massa mi.
-                                                Aliquam in hendrerit urna.</div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex justify-content-end mb-10 d-none" data-kt-element="template-out">
-                                        <div class="d-flex flex-column align-items-end">
-                                            <div class="d-flex align-items-center mb-2">
-                                                <div class="me-3">
-                                                    <span class="text-muted fs-7 mb-1">13.49</span>
-                                                    <a href="#"
-                                                        class="fs-5 fw-bold text-gray-900 text-hover-primary ms-1">Dokter
-                                                        A</a>
-                                                </div>
-                                                <div class="symbol symbol-35px symbol-circle">
-                                                    <img alt="Pic"
-                                                        src="/demo42/dist/assets/media/avatars/dokter.jpg" />
-                                                </div>
-                                            </div>
-                                            <div class="p-5 rounded bg-light-primary text-dark fw-semibold mw-lg-400px text-end"
-                                                data-kt-element="message-text"></div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex justify-content-start mb-10 d-none" data-kt-element="template-in">
-                                        <div class="d-flex flex-column align-items-start">
-                                            <div class="d-flex align-items-center mb-2">
-                                                <div class="symbol symbol-35px symbol-circle">
-                                                    <img alt="Pic"
-                                                        src="/demo42/dist/assets/media/avatars/300-10.jpg" />
-                                                </div>
-                                                <div class="ms-3">
-                                                    <a href="#"
-                                                        class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">Jake</a>
-                                                    <span class="text-muted fs-7 mb-1">13.49</span>
-                                                </div>
-                                            </div>
-                                            <div class="p-5 rounded bg-light-info text-dark fw-semibold mw-lg-400px text-start"
-                                                data-kt-element="message-text">Right before vacation
-                                                season we have the next Big Deal for you.</div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                             <div class="card-footer pt-4" id="kt_chat_messenger_footer">
-                                <textarea class="form-control mb-3" rows="1" data-kt-element="input" placeholder="Ketik pesan..."></textarea>
-                                <div class="d-flex flex-stack">
-                                    <div class="d-flex align-items-center me-2">
-                                        <input type="file" style="display:none;" id="inputFile" />
-                                        <a href="javascript:document.getElementById('inputFile').click(); ">
-                                            <div class="btn btn-sm btn-icon btn-active-light-primary me-1">
-                                                <i class="ki-outline ki-paper-clip fs-3"></i>
-                                            </div>
-                                        </a>
+                                <form action="{{ route('chat.send') }}" method="post" id="sendMessageForm">
+                                    @csrf
+                                    <input type="hidden" name="sesi_id" id="sesi_id" value="{{ $konsultasi->id }}">
+                                    <input type="hidden" name="sender_id" id="sender_id"
+                                        value="{{ Auth::user()->id }}">
+                                    <textarea class="form-control mb-3" rows="1" data-kt-element="input" placeholder="Ketik pesan..."
+                                        name="pesan" id="messageInput"></textarea>
+                                    <div class="d-flex justify-content-end">
+                                        {{-- <div class="d-flex align-items-center me-2">
+                                            <input type="file" style="display:none;" id="inputFile" />
+                                            <a href="javascript:document.getElementById('inputFile').click(); ">
+                                                <div class="btn btn-sm btn-icon btn-active-light-primary me-1">
+                                                    <i class="ki-outline ki-paper-clip fs-3"></i>
+                                                </div>
+                                            </a>
+                                        </div> --}}
+                                        <button class="btn btn-primary px-4" type="submit" data-kt-element="send">Kirim
+                                            <i class="bi bi-send fs-5 ms-2"></i>
+                                        </button>
                                     </div>
-                                    <button class="btn btn-primary px-4" type="button" data-kt-element="send">Kirim
-                                        <i class="bi bi-send fs-5 ms-2"></i>
-                                    </button>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
+                @if ( request()->routeIs('dokter.chat.show') )
+                <div class="card mb-5 mb-xl-5 box-shadow">
+                    <div class="card-header ">
+                        <div class="card-title m-0">
+                            <h3 class="fw-bold m-0">Hasil Rekam Medis</h3>
+                        </div>
+                    </div>
+                    <div class="card-body p-9">
+                        <div class="table-responsive">
+                            <table id="tabel_rekam_medis"
+                                class="table table-striped table-row-bordered gy-5 gs-7 border rounded">
+                                <thead>
+                                    <tr class="fw-bold fs-6 text-gray-800 px-7">
+                                        <th>Tanggal</th>
+                                        <th>Dokter</th>
+                                        <th>Anamnesis</th>
+                                        <th>Tanda-tanda Vital</th>
+                                        <th>Diagnosis</th>
+                                        <th>Medikamentosa</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($rekamMedis as $rekam)
+                                        <tr>
+                                            <td>{{ $rekam->tanggal }}</td>
+                                            <td>
+                                                <div class="text-primary fs-5 fw-bold"
+                                                    data-kt-dokter-filter="{{ $rekam->dokter->nama }}">
+                                                    {{ $rekam->dokter->nama }}</div>
+                                                <div class="text-muted fs-7 fw-bold">Spesialis
+                                                    {{ $rekam->dokter->spesialis }}</div>
+                                            </td>
+                                            <td>{{ $rekam->anamnesis }}</td>
+                                            <td>{{ $rekam->tanda_vital }}</td>
+                                            <td>{{ $rekam->diagnosis }}</td>
+                                            <td>{{ $rekam->medikasi }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                @endif
             </div>
         </div>
     </div>
 
-    <script>
-        $(document).ready(function() {
-            $('.btnDetail').click(function() {
-                $('#rekamMedisModalLabel').text('Detail Rekam Medis');
-                $('#id').val($(this).data('id'));
-                $('#detailAnamnesis').val($(this).data('anamnesis'));
-                $('#detailTanda_vital').val($(this).data('tanda-vital'));
-                $('#detailDiagnosis').val($(this).data('diagnosis'));
-                $('#detailMedikasi').val($(this).data('medikasi'));
-                $('#detailPasien').text($(this).data('pasien'));
-                $('#detailRekammedis').text($(this).data('rekammedis'));
-                $('#detailDokter').text($(this).data('dokter'));
-                $('#detailSpesialis').text($(this).data('spesialis'));
-                $('#detailStr').text($(this).data('str'));
-                $('#detailUmur').text($(this).data('umur') + ' tahun');
-            });
-        });
-    </script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const table = $('#kt_rekam_table').DataTable({
@@ -303,5 +219,135 @@
                 table.column(5).search(keyword, false, true).draw();
             });
         });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#sendMessageForm').on('submit', function(e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: 'https://meditalk.catalogrpl.com/chat/dokter/send',
+                    method: 'POST',
+                    data: {
+                        sesi_id: $('#sesi_id').val(),
+                        sender_id: $('#sender_id').val(),
+                        pesan: $('#messageInput').val(),
+                        _token: $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        $('#messageInput').val('');
+
+                        const currentTime = new Date().toLocaleTimeString([], {
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        });
+
+                        $('#kt_chat_messenger_body .scroll-y').append(`
+                        <div class="d-flex justify-content-end mb-10">
+                            <div class="d-flex flex-column align-items-end">
+                                <div class="d-flex align-items-center mb-2">
+                                    <div class="me-3">
+                                        <span class="text-muted fs-7 mb-1">${currentTime}</span>
+                                        <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary ms-1">Pasien A</a>
+                                    </div>
+                                    <div class="symbol symbol-35px symbol-circle">
+                                        <img alt="Pic" src="{{ asset('images/user.jpg') }}" />
+                                    </div>
+                                </div>
+                                <div class="p-5 rounded bg-light-primary text-dark fw-semibold mw-lg-400px text-end" data-kt-element="message-text">
+                                    ${response.data.pesan}
+                                </div>
+                            </div>
+                        </div>
+                    `);
+
+                        $('#kt_chat_messenger_body').scrollTop($('#kt_chat_messenger_body')[0]
+                            .scrollHeight);
+                    },
+                    error: function(xhr) {
+                        alert('Gagal mengirim pesan');
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        function loadMessages() {
+            $.ajax({
+                url: "{{ route('dokter.chat.messages', $konsultasi->id) }}",
+                method: "GET",
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    sesi_id: $('#sesi_id').val(),
+                },
+                success: function(response) {
+                    const chatContainer = $('[data-kt-element="messages"]');
+                    chatContainer.html('');
+
+                    response.forEach(function(msg) {
+                        const html = renderMessage(msg, {{ Auth::user()->id }});
+                        chatContainer.append(html);
+                    });
+
+                    chatContainer.scrollTop(chatContainer[0].scrollHeight); // auto scroll
+                },
+                error: function(error) {
+                    console.error("Gagal memuat pesan:", error);
+                }
+            });
+        }
+
+        function renderMessage(msg, currentUserId) {
+            const isSender = msg.sender_id === currentUserId;
+
+            const wrapperClass = `d-flex justify-content-${isSender ? 'end' : 'start'} mb-10`;
+            const columnClass = `d-flex flex-column align-items-${isSender ? 'end' : 'start'}`;
+            const bubbleClass =
+                `p-5 rounded ${isSender ? 'bg-light-primary text-end' : 'bg-light-info text-start'} text-dark fw-semibold mw-lg-400px`;
+
+            const avatar = isSender ?
+                `<img alt="{{ $konsultasi->dokter->nama }}" src="{{ asset('storage/' . $konsultasi->dokter->foto) }}" class="symbol symbol-35px symbol-circle" />` :
+                `<img alt="Pasien" src="{{ asset('images/user.jpg') }}" class="symbol symbol-35px symbol-circle" />`;
+
+            const header = isSender ?
+                `
+                <div class="me-3">
+                    <span class="text-muted fs-7 mb-1">${msg.created_at}</span>
+                    <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary ms-1">Anda</a>
+                </div>
+                <div class="symbol symbol-35px symbol-circle">
+                    ${avatar}
+                </div>
+            ` :
+                `
+                <div class="symbol symbol-35px symbol-circle">
+                    ${avatar}
+                </div>
+                <div class="ms-3">
+                    <a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary me-1">${msg.sender_name}</a>
+                    <span class="text-muted fs-7 mb-1">${msg.created_at}</span>
+                </div>
+            `;
+
+            return `
+            <div class="${wrapperClass}">
+                <div class="${columnClass}">
+                    <div class="d-flex align-items-center mb-2">
+                        ${header}
+                    </div>
+                    <div class="${bubbleClass}" data-kt-element="message-text">
+                        ${msg.pesan}
+                    </div>
+                </div>
+            </div>
+        `;
+        }
+
+        setInterval(loadMessages, 2000);
+        loadMessages();
     </script>
 @endsection

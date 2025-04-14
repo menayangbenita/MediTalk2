@@ -43,9 +43,10 @@ class KonsultasiController extends Controller
 
     public function riwayat()
     {
-        $riwayats = SesiKonsultasi::where('status', 'selesai')
+        $riwayats = SesiKonsultasi::whereIn('status', ['selesai', 'berjalan'])
             ->where('pasien_id', Auth::user()->id)
             ->get();
+            
         return view('pasien.konsultasi.riwayat', compact('riwayats'));
     }
 }

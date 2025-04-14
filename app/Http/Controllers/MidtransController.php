@@ -69,7 +69,6 @@ class MidtransController extends Controller
     {
         Log::info('Webhook Received', ['query' => $request->query()]);
 
-        // Ambil data dari webhook
         $orderId = $request->query('order_id');
         $transactionStatus = $request->query('transaction_status');
 
@@ -77,7 +76,6 @@ class MidtransController extends Controller
             return response()->json(['error' => 'Invalid request'], 400);
         }
 
-        // Cari transaksi berdasarkan order_id
         $transaksi = Transaksi::where('order_id', $orderId)->first();
 
         if (!$transaksi) {
@@ -91,7 +89,7 @@ class MidtransController extends Controller
                 'dokter_id' => $transaksi->dokter_id,
                 'pasien_id' => $transaksi->user_id,
                 'pembayaran_id' => $transaksi->order_id,
-                'status' => 'berlangsung',
+                'status' => 'berjalan',
                 'waktu_mulai' => now(),
                 'waktu_selesai' => now()->addMinutes(60),
             ]);

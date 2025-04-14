@@ -6,7 +6,7 @@
         <div class="text-white fw-bold fs-2 mb-2 mt-5">Sesi Belum Dimulai
         </div>
         <div class="fw-semibold text-white">Klik tombol di bawah ini untuk memulai konsultasi dengan dokter.</div>
-        <a href=""
+        <a href="{{ route('pasien.chat', $konsultasi->id) }}"
             class="btn btn-outline btn-outline-dashed btn-outline-secondary position-absolute bottom-0 end-0 btn-cardinfo">
             Mulai
         </a>

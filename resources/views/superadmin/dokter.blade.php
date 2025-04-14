@@ -386,7 +386,7 @@
                         <button id="kt_tambah_dokter_submit" class="btn btn-primary" type="submit"
                             data-kt-translate="sign-up-submit">
                             <!--begin::Indicator label-->
-                            <span class="indicator-label">Simpan perubahan</span>
+                            <span class="indicator-label">Simpan</span>
                             <!--end::Indicator label-->
                             <!--begin::Indicator progress-->
                             <span class="indicator-progress">Harap Tunggu...

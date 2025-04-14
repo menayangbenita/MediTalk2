@@ -21,7 +21,6 @@ class ChatController extends Controller
         return view('pasien.konsultasi.chat', compact('sesi'));
     }
 
-    // Ambil pesan-pesan
     public function getMessages($sesiId)
     {
         $messages = Chat::where('sesi_id', $sesiId)
@@ -41,7 +40,6 @@ class ChatController extends Controller
         return response()->json($messages);
     }
 
-    // Kirim pesan
     public function send(Request $request)
     {
         $request->validate([
@@ -49,9 +47,10 @@ class ChatController extends Controller
             'pesan' => 'required|string',
         ]);
 
+        $dokter = Auth::user()->dokter;
         $sesi = SesiKonsultasi::findOrFail($request->sesi_id);
 
-        if (Auth::id() != $sesi->pasien_id && Auth::id() != $sesi->dokter_id) {
+        if (Auth::id() != $sesi->pasien_id &&  $dokter->id != $sesi->dokter_id) {
             return response()->json(['error' => 'Unauthorized'], 403);
         }
 
