@@ -49806,11 +49806,20 @@ code:not([class*=language-]) {
     max-width: none
 }
 
-.symbol.symbol-200px>img {
+.symbol.symbol-200px {
     width: 200px;
-    height: 200px
+    height: 200px;
+    position: relative;
+    overflow: visible;
 }
 
+.symbol.symbol-200px>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 8px;
+}
 .symbol.symbol-200px .symbol-label {
     width: 200px;
     height: 200px
