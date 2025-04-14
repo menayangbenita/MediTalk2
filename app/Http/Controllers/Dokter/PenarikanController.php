@@ -66,6 +66,6 @@ class PenarikanController extends Controller
             return $item;
         });
 
-        return view('dokter.penarikan-dana', compact('dokter', 'riwayat', 'saldoAkhir', 'totalMasuk', 'totalKeluar'));
+        return view('dokter.penarikan-dana', compact('dokter', 'dokter_id', 'riwayat', 'saldoAkhir', 'totalMasuk', 'totalKeluar'));
     }
 }

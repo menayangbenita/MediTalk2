@@ -117,7 +117,7 @@
                                         </div>
                                     </div>
                                 @empty
-                                    <div class="text-center text-muted fs-6 mt-4">
+                                    <div class="text-center text-muted fs-6">
                                         Anda belum memiliki riwayat rekam medis.
                                     </div>
                                 @endforelse

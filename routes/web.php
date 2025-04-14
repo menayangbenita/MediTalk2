@@ -71,6 +71,7 @@ Route::middleware(['auth', 'role:dokter'])->group(function () {
     Route::get('/dashboard/dokter', [DashboardController::class, 'index'])->name( 'dashboard.dokter');
     Route::get('/rekam-medis/dokter', [RekamMedisController::class, 'rekamMedisPasien'])->name('dokter.rekam-medis');
     Route::get('/penarikan', [PenarikanController::class, 'index'])->name('dokter.penarikan.index');
+    Route::get('/penarikan/store', [PenarikanController::class, 'index'])->name('dokter.penarikan.store');
     Route::get('/profil/dokter', [ProfilController::class, 'show'])->name('dokter.profil.show');
     Route::get('/profil/dokter/edit', [ProfilController::class, 'edit'])->name('dokter.profil.edit');
     Route::post('/profil/{id}/update-nama-bank', [ProfilController::class, 'updateNamaBank'])->name('dokter.profil.updateNamaBank');

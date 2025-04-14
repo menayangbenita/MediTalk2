@@ -156,7 +156,7 @@
             <div class="modal fade" id="modal_tarik_dana" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered mw-650px">
                     <div class="modal-content">
-                        <form class="form" action="#" id="modal_tarik_dana_form">
+                        <form class="form" method="post" action="{{ route('dokter.penarikan.store') }}" id="modal_tarik_dana_form">
                             <div class="modal-header" id="modal_tarik_dana_header">
                                 <h2 class="fw-bold">Tarik Dana</h2>
                                 <div id="modal_tarik_dana_close" data-bs-dismiss="modal"
@@ -165,19 +165,15 @@
                                 </div>
                             </div>
                             <div class="modal-body py-10 px-lg-17">
+                                <input type="hidden" name="dokter_id" value="{{ $dokter_id }}">
                                 <div class="scroll-y me-n7 pe-7" id="modal_tarik_dana_scroll" data-kt-scroll="true"
                                     data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto"
                                     data-kt-scroll-dependencies="#modal_tarik_dana_header"
                                     data-kt-scroll-wrappers="#modal_tarik_dana_scroll" data-kt-scroll-offset="300px">
                                     <div class="fv-row mb-7">
                                         <label class="required fs-6 fw-semibold mb-2">Masukkan Nominal</label>
-                                        <input type="number" class="form-control form-control-solid" placeholder=""
-                                            name="nominal penarikan" value="" />
-                                    </div>
-                                    <div class="fv-row mb-7">
-                                        <label class="required fs-6 fw-semibold mb-2">Masukkan Nominal</label>
-                                        <input type="number" class="form-control form-control-solid" placeholder=""
-                                            name="nominal penarikan" value="" />
+                                        <input type="number" class="form-control form-control-solid" placeholder="Cth: 100000"
+                                            name="jumlah" value="" />
                                     </div>
                                 </div>
                             </div>
