@@ -157,6 +157,7 @@
                 <div class="modal-dialog modal-dialog-centered mw-650px">
                     <div class="modal-content">
                         <form class="form" method="post" action="{{ route('dokter.penarikan.store') }}" id="modal_tarik_dana_form">
+                            @csrf
                             <div class="modal-header" id="modal_tarik_dana_header">
                                 <h2 class="fw-bold">Tarik Dana</h2>
                                 <div id="modal_tarik_dana_close" data-bs-dismiss="modal"
